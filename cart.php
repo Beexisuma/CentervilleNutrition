@@ -13,7 +13,7 @@
 
 
 <?php 
-if(isset($_SESSION['username'])) {
+if(isset($_SESSION['firstName'])) {
     echo("<h1 style='font-size: 64px; display: flex; justify-content: center; color: pink; '>I love you</h1>");
 }
 
