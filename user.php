@@ -9,8 +9,8 @@
 <?php
 
  include('references/header.php'); 
-if(isset($_SESSION['username'])) {
-    echo("Welcome " . $_SESSION['username']);
+if(isset($_SESSION['firstName'])) {
+    echo("Welcome " . $_SESSION['firstName']);
         echo("<form method='POST'>");
         echo("<input type='submit' name='logout' value='Logout'>");
         echo("</form>");
@@ -20,7 +20,7 @@ if(isset($_SESSION['username'])) {
         
          if(isset($_POST['logout'])) {
           session_destroy();
-          header("Location: index.php");
+          header("Location: login.php");
         }
 }
 
