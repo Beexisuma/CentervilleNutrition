@@ -7,6 +7,8 @@ if(isset($_SESSION['loginSuccess'])) {
     unset($_SESSION['loginSuccess']);
 }
 
+
+
 ?>
 
 
@@ -39,7 +41,7 @@ if(isset($_SESSION['loginSuccess'])) {
 			</div>
 			<div class="welcome-title">
 				<h3>Schedule A Visit Today</h3>
-				<h1>It's Our Treat</h1>
+				<h1>It's<a style='text-decoration: none; color: #463437;' href="images/elkinoak-main/index.php"> Our </a>Treat</h1>
 			</div>
 			<div class="welcome-card welcome-facts2">
 				<h4 class="welcome-styled">Knockout</h4>
