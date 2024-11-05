@@ -19,6 +19,8 @@ if (isset($_POST['login'])) {
     else {
     $firstName_query = mysqli_query($con, "SELECT firstName FROM user WHERE email='$email' AND pass='$password'");
     $firstName = mysqli_fetch_row($firstName_query)[0]; 
+    $_SESSION['cartCount'] = 0;
+
     $_SESSION['firstName'] = $firstName;
     $_SESSION['loginSuccess'] = "<div class='success'>Login Successful.</div>";
     header("Location: index.php");
@@ -55,7 +57,7 @@ if(isset($_SESSION['regSuccess'])) {
     <div class="bottomMargin">
         <a href="index.php" class="logo">
             <div class="logo-footer">
-                <h1>Centerville Nutrition</h1>
+                <h1 class='bottom-logo alt'>Centerville Nutrition</h1>
             </div>
             <span>
                 <div class="logoUnder1"></div>

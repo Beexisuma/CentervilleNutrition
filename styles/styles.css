@@ -234,3 +234,30 @@
 	padding: 0 7.5%;
 	line-height: 1.32;
 }
+
+.error {
+	color: red; 
+	display: flex; 
+	justify-content: center; 
+	margin-top: 20px;
+	font-size: 48px;
+}
+
+.success {
+	color: green; 
+	display: flex; 
+	justify-content: center; 
+	margin-top: 20px;
+	font-size: 48px;
+}
+
+.bottom-logo {
+	display: flex;
+	color: black;
+	justify-content: left;
+}
+
+.alt {
+	color: var(--dark1)
+	!important;
+}
