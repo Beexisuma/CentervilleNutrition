@@ -1,18 +1,15 @@
-<?php include('references/header.php'); ?>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menu</title>
-</head>
-<body>
-
 <?php
+include('references/header.php');
 
+// Check if the session for itemArray is set
 if (!isset($_SESSION['itemArray'])) {
     $_SESSION['itemArray'] = array();
+}
+
+// Display success message if any
+if (isset($_SESSION['success_message'])) {
+    echo "<div class='success'>" . $_SESSION['success_message'] . "</div>";
+    unset($_SESSION['success_message']); 
 }
 
 $menu_query = mysqli_query($con, "SELECT ItemID, Name, Description, Price, InStock FROM menu");
@@ -45,30 +42,21 @@ if ($num_rows > 0) {
     echo "</table>";
 } else {
     echo "<p>No items available.</p>";
-} 
+}
 
+// Handle Add to Cart
 if (isset($_POST['addCart'])) {
     $item_id = $_POST['item_id'];
     $item_query = mysqli_query($con, "SELECT Name FROM menu WHERE ItemID = '$item_id'");
     $row = $item_query->fetch_assoc();
-
-    $_SESSION['cartCount'] = isset($_SESSION['cartCount']) ? $_SESSION['cartCount'] + 1 : 1;
-
-    $_SESSION['success_message'] = $row['Name'] . " added to cart.";
-
-    array_push($_SESSION['itemArray'], $item_id);
     
-    header('location: menu.php');
+    // Store the ItemID in a session variable for customization page
+    $_SESSION['customize_item_id'] = $item_id;
+    
+    // Redirect to the customization page
+    header('Location: customize.php');
     exit(); 
 }
-
-// Display success message if any
-if (isset($_SESSION['success_message'])) {
-    echo "<div class='success'>" . $_SESSION['success_message'] . "</div>";
-    unset($_SESSION['success_message']); 
-}
-
-
 ?>
 
 </body>
