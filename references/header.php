@@ -29,7 +29,15 @@
 		
 		<div class="main-nav">
 		<img src="references/keyImage.gif" alt="hamster on wheel" height="24px">
-			<a href=""><form method='POST'><input type='submit' name='clear' value='Clear Cart'></input></form></a>
+			
+			<?php
+			if (isset($_SESSION['admin'])) {
+
+			 if($_SESSION['admin'] == 1) {
+			echo ("<a href='admin.php'>Admin</a>");
+			} 
+			}
+			?>
 			<a href="menu.php">Menu</a>
 			<a href="rewards.php">Rewards</a>
             <?php 
@@ -38,23 +46,9 @@
             } else {
                 echo "<a href='user.php'>" . ($_SESSION['firstName']) . "</a>";
 				$firstName = $_SESSION['firstName'];
-				$isadmin_query = mysqli_query($con, "SELECT isadmin FROM user WHERE FirstName= '$firstName'");
-				$isadmin = mysqli_fetch_row($isadmin_query)[0];
-				if($isadmin == 1) {
-					echo "<a href='admin.php'>Admin</a>";
-				}
             }
-			
-			if(isset($_POST['clear'])) {
-				$_SESSION['cartCount'] = 0;
-				unset($_SESSION['success_message']);
-				if (isset($_SESSION['itemArray'])) {
-					unset($_SESSION['itemArray']);
-				}
-			}
-
-			
-			
+		
+		
 			
             ?>
 			<a href="cart.php"><?php if(isset($_SESSION['cartCount'])) {
