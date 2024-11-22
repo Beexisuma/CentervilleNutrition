@@ -141,12 +141,16 @@ class Database
     foreach($final as $item)
     {
       $final[$counter] = explode(",",$item);
-      array_pop($final[$counter]);
       $counter++;
     }
     array_shift($final);
-    
     return $final;
+  }
+
+  public function clearCart($user)
+  {
+    $userArray = $this->searchData("user", "email", $user);
+
   }
 
   public function addItem($cart, $item)
@@ -200,5 +204,9 @@ mysqli_select_db($con, $databaseName);
 
 //Creates Database class using connection variable
 $dataClass = new Database($con);
+
+// Start Session
+ob_start(); 
+session_start();
 
 ?>

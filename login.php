@@ -34,7 +34,6 @@ if (isset($_POST['login'])) {
 
     if ($cartID_query && mysqli_num_rows($cartID_query) > 0) {
         $cartID = mysqli_fetch_row($cartID_query)[0];
-        
         $currentPunch_query = mysqli_query($con, "SELECT CurrentPunches FROM punchcard WHERE CartID='$cartID'");
         if ($currentPunch_query && mysqli_num_rows($currentPunch_query) > 0) {
             $currentPunch = mysqli_fetch_row($currentPunch_query)[0]; 

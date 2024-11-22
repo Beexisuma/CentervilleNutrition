@@ -54,10 +54,10 @@ if (isset($_SESSION['firstName'])) {
 
         // Apply punch card discount if applicable
         $_SESSION['subtract'] = 0;
-        if ($_SESSION['punchCount'] >= 10) {
+        if($_SESSION['unredeemed'] > 0) {
             echo "<form method='POST' id='punchForm'>";
-            echo "Would you like to redeem 10 punches for a free drink?" . "<br>";
-            echo "<input type='checkbox' name='punchCheck' id='punchCheck' /> Yes, redeem 10 punches for a free drink";
+            echo "Would you like to redeem a punch card for a free drink?" . "<br>";
+            echo "<input type='checkbox' name='punchCheck' id='punchCheck' /> Yes, redeem a punch card for a free drink";
             echo "</form>";
 
             if (isset($_POST['punchCheck']) && $_POST['punchCheck'] == 'on') {
