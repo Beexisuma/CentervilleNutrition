@@ -190,7 +190,7 @@ class Database
 $host = "localhost";
 $user = "root";
 $password = "";
-$databaseName = "centervillenutrition";
+$databaseName = "completecentervillenutrition";
 
 //Creates connection variable
 $con = mysqli_connect($host, $user, $password);

@@ -3,7 +3,7 @@ include('references/header.php');
 
 // Check if the session for itemArray is set
 if (!isset($_SESSION['itemArray'])) {
-    $_SESSION['itemArray'] = array();
+    $_SESSION['itemArray'] = $dataClass->cartToArray(($dataClass->searchData("cart", "CartID" ,$dataClass->searchData("user", "email", $_SESSION['email'])["CartID"])["ItemList"]));
 }
 
 // Display success message if any
@@ -51,7 +51,7 @@ if (isset($_POST['addCart'])) {
     $row = $item_query->fetch_assoc();
     
     // Store the ItemID in a session variable for customization page
-    $_SESSION['customize_item_id'] = $item_id;
+    $_SESSION['customize_item_id'] = array($item_id);
     
     // Redirect to the customization page
     header('Location: customize.php');
