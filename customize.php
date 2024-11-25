@@ -6,7 +6,7 @@ if (isset($_SESSION['customize_item_id'])) {
     $item_id = $_SESSION['customize_item_id'];
 
     // Query to get the selected menu item details
-    $item_query = mysqli_query($con, "SELECT ItemID, Name, Description, Price FROM menu WHERE ItemID = '$item_id'");
+    $item_query = mysqli_query($con, "SELECT ItemID, Name, Description, Price FROM menu WHERE ItemID = '$item_id[0]'");
     $item = $item_query->fetch_assoc();
 
     if ($item) {
@@ -25,8 +25,13 @@ if (isset($_SESSION['customize_item_id'])) {
                 <th>Name</th>
                 <th>Description</th>
                 <th>Price</th>
+<<<<<<< WorkingCustomization
+
+                <th>Add to Item</th>
+=======
                 <th>In Stock</th>
                 <th>Customization</th>
+>>>>>>> main
             </tr>";
 
             while ($row = $customization_query->fetch_assoc()) {
@@ -36,7 +41,7 @@ if (isset($_SESSION['customize_item_id'])) {
                         <td>" . htmlspecialchars($row["Name"]) . "</td>
                         <td>" . htmlspecialchars($row["Description"]) . "</td>
                         <td>$" . number_format($row["Price"], 2) . "</td>
-                        <td>" . ($row["InStock"] ? 'Yes' : 'No') . "</td>
+
                         <td><form style='display: flex; justify-content: center;' method='POST'>
                         <input type='hidden' name='customization_id' value='" . htmlspecialchars($row["CustomizationID"]) . "'>
                         <input type='submit' name='addCart' value='Add to Item'>
@@ -63,9 +68,41 @@ if (isset($_SESSION['customize_item_id'])) {
     echo "<p>No item selected for customization.</p>";
 }
 
+
+if (isset($_POST['addCart']))
+{
+    $notSelectedCustomization = true;
+    for($index=1; $index < count($_SESSION['customize_item_id']); $index++)
+    {
+
+        if($_POST['customization_id'] == $_SESSION['customize_item_id'][$index])
+        {
+            $notSelectedCustomization = false;
+        }
+    }
+    
+    if($notSelectedCustomization)
+    {
+        array_push($_SESSION['customize_item_id'], $_POST['customization_id']);
+    }
+}
+
 // Handle Add to Cart after customization
 if (isset($_POST['addToCart'])) {
     $item_id = $_SESSION['customize_item_id'];
+<<<<<<< WorkingCustomization
+    
+    $item_query = mysqli_query($con, "SELECT Name FROM menu WHERE ItemID = '$item_id[0]'");
+    $row = $item_query->fetch_assoc();
+
+    // Add the item to the cart
+    $_SESSION['success_message'] = $row['Name'] . " added to cart.";
+
+
+    // Add the item to session array for cart
+    array_push($_SESSION['itemArray'], $item_id);
+    print_r($item_id);
+=======
     $quantity = $_POST['quantity']; // Get the quantity from the form
 
     // Query to get the item name
@@ -80,10 +117,14 @@ if (isset($_POST['addToCart'])) {
     for ($i = 0; $i < $quantity; $i++) {
         array_push($_SESSION['itemArray'], $item_id);
     }
+>>>>>>> main
 
     // Clear customization session (optional, as item is now added to the cart)
     unset($_SESSION['customize_item_id']);
-    
+    unset($_SESSION['customization_array']);
+    //#3,2,#4,#5,1,3,#1,#1,2, 'cart','ItemList = "#1,"','CartID',3
+    $dataClass->updateData('cart','ItemList = "' . $dataClass->cartToString($_SESSION['itemArray']). '"','CartID',$dataClass->searchData("user", "email", $_SESSION['email'])['CartID']);
+
     // Redirect back to menu or cart page
     header('Location: menuDisplay.php');
     exit();
