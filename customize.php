@@ -26,9 +26,9 @@ if (isset($_SESSION['customize_item_id'])) {
                 <th>Description</th>
                 <th>Price</th>
                 <th>In Stock</th>
-                <th>Add to Item</th>
+                <th>Customization</th>
             </tr>";
-            
+
             while ($row = $customization_query->fetch_assoc()) {
                 // Check if the customization is in stock
                 if ($row["InStock"] == 1) {
@@ -39,7 +39,7 @@ if (isset($_SESSION['customize_item_id'])) {
                         <td>" . ($row["InStock"] ? 'Yes' : 'No') . "</td>
                         <td><form style='display: flex; justify-content: center;' method='POST'>
                         <input type='hidden' name='customization_id' value='" . htmlspecialchars($row["CustomizationID"]) . "'>
-                        <input type='submit' name='addCart' value='Add to Cart'>
+                        <input type='submit' name='addCart' value='Add to Item'>
                         </form>
                         </td>
                     </tr>";
@@ -50,9 +50,11 @@ if (isset($_SESSION['customize_item_id'])) {
             echo "<p>No customization options available for this item.</p>";
         }
 
-        // Add the item to the cart form
+        // Add the item to the cart form with quantity option
         echo "<form method='POST' action='customize.php'>
-                <input type='submit' name='addToCart' value='Add Customized Item to Cart'>
+                <label for='quantity'>Quantity:</label>
+                <input type='number' name='quantity' value='1' min='1' style='width: 60px; margin-right: 10px;'>
+                <input type='submit' name='addToCart' value='Add to Cart'>
               </form>";
     } else {
         echo "<p>Item not found.</p>";
@@ -64,21 +66,26 @@ if (isset($_SESSION['customize_item_id'])) {
 // Handle Add to Cart after customization
 if (isset($_POST['addToCart'])) {
     $item_id = $_SESSION['customize_item_id'];
+    $quantity = $_POST['quantity']; // Get the quantity from the form
+
+    // Query to get the item name
     $item_query = mysqli_query($con, "SELECT Name FROM menu WHERE ItemID = '$item_id'");
     $row = $item_query->fetch_assoc();
 
-    // Add the item to the cart
-    $_SESSION['cartCount'] = isset($_SESSION['cartCount']) ? $_SESSION['cartCount'] + 1 : 1;
+    // Add the item with the specified quantity to the cart
+    $_SESSION['cartCount'] = isset($_SESSION['cartCount']) ? $_SESSION['cartCount'] + $quantity : $quantity;
     $_SESSION['success_message'] = $row['Name'] . " added to cart.";
 
-    // Add the item to session array for cart
-    array_push($_SESSION['itemArray'], $item_id);
-    
+    // Add the item to session array for cart, multiple items based on quantity
+    for ($i = 0; $i < $quantity; $i++) {
+        array_push($_SESSION['itemArray'], $item_id);
+    }
+
     // Clear customization session (optional, as item is now added to the cart)
     unset($_SESSION['customize_item_id']);
     
     // Redirect back to menu or cart page
-    header('Location: menu.php');
+    header('Location: menuDisplay.php');
     exit();
 }
 ?>

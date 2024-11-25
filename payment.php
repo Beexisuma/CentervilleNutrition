@@ -1,16 +1,12 @@
 <?php 
 include('references/header.php');
 
-// Check if the user is logged in and if the cart has items
 if (isset($_SESSION['firstName'])) {
     if (isset($_SESSION['itemArray']) && count($_SESSION['itemArray']) > 0) {
-
-        // Initialize subtotal as 0
         $subtotal = 0;
-        $itemCount = 0; // Counter for the first item
-        $totalItems = count($_SESSION['itemArray']); // Total items in cart
+        $itemCount = 0;
+        $totalItems = count($_SESSION['itemArray']);
 
-        // Loop through the items in the cart and display them
         foreach ($_SESSION['itemArray'] as $itemID) {
             $sql = "SELECT ItemID, Price, Name, Description FROM menu WHERE ItemID='$itemID'";
             $cartQuery = mysqli_query($con, $sql);
@@ -19,9 +15,9 @@ if (isset($_SESSION['firstName'])) {
                 while ($row = mysqli_fetch_assoc($cartQuery)) {
                     $itemPrice = $row['Price'];
 
-                    // If the punchcard is being redeemed, set the price of the first item to 0
+                    // Check if the item is the first one and we are redeeming
                     if (isset($_SESSION['subtract']) && $_SESSION['subtract'] == 1 && $itemCount == 0) {
-                        $itemPrice = 0; // Set the price of the first item to 0 (free drink)
+                        $itemPrice = 0; // This item is free due to the redemption
                     }
 
                     echo "<div style='margin: 20px;'>";
@@ -29,15 +25,13 @@ if (isset($_SESSION['firstName'])) {
                     echo "<p><strong>Price:</strong> $" . number_format($itemPrice, 2) . "</p>";
                     echo "</div>";
                     
-                    // Update subtotal: if item is not free (itemPrice > 0), we add it
                     $subtotal += $itemPrice;
 
-                    $itemCount++; // Increment item counter for free drink application
+                    $itemCount++;
                 }
             }
         }
 
-        // Display the subtotal, tax, and total
         if (isset($subtotal)) {
             $tax = $subtotal * 0.07;
             $tax = round($tax, 2);
@@ -53,17 +47,16 @@ if (isset($_SESSION['firstName'])) {
     } else {
         $_SESSION['buySomething'] = "<div class='error'>There are no items in the cart.</div>";
         header('location: cart.php');
-        exit(); // Ensure the script stops after redirect
+        exit();
     }
 } else {
     header("location: index.php");
     $_SESSION['mustLogin'] = "<h3 class='error'>You must log in to access this page.</h3>";
-    exit(); // Ensure the script stops after redirect
+    exit();
 }
 
 ?>
 
-<!-- Back Button and Payment Form -->
 <button style="width: 100px; display: flex; justify-content: center;">
     <a href="cart.php">Back</a>
 </button>
@@ -73,39 +66,64 @@ if (isset($_SESSION['firstName'])) {
 </form>
 
 <?php
-// Handle the payment action
 if (isset($_POST['pay'])) {
     $email = $_SESSION['email'];
 
-    // Fetch the CartID for the logged-in user
     $cartID_query = mysqli_query($con, "SELECT CartID FROM user WHERE email='$email'");
     if ($cartID_query && mysqli_num_rows($cartID_query) > 0) {
         $cartID = mysqli_fetch_row($cartID_query)[0];
 
-        // Fetch the current number of punches associated with the CartID
         $currentPunch_query = mysqli_query($con, "SELECT CurrentPunches FROM punchcard WHERE CartID='$cartID'");
         if ($currentPunch_query && mysqli_num_rows($currentPunch_query) > 0) {
             $currentPunch = mysqli_fetch_row($currentPunch_query)[0];
 
-            // Calculate the new number of punches
-            $newPunch = $currentPunch + $totalItems; // Add punches for all items in the cart
-
-            if ($newPunch > 10) {
-                $newPunch = 10; // Cap the number of punches at 10
+            $unredeemed_query = mysqli_query($con, "SELECT UnrewardedCards FROM punchcard WHERE CartID='$cartID'");
+            if ($unredeemed_query && mysqli_num_rows($unredeemed_query) > 0) {
+                $unredeemed = mysqli_fetch_row($unredeemed_query)[0]; 
             }
 
-            // Update the punchcard with the new punch count
+            $newPunch = $currentPunch; // Initialize punches with current punches count
+            $itemsProcessed = 0;
+
+            // Loop through the items in the cart
+            foreach ($_SESSION['itemArray'] as $itemID) {
+                $sql = "SELECT ItemID, Price FROM menu WHERE ItemID='$itemID'";
+                $cartQuery = mysqli_query($con, $sql);
+
+                if ($cartQuery) {
+                    while ($row = mysqli_fetch_assoc($cartQuery)) {
+                        // If we're redeeming for the first item, skip the punch for that item
+                        if (isset($_SESSION['subtract']) && $_SESSION['subtract'] == 1 && $itemsProcessed == 0) {
+                            // Skip adding a punch for this redeemed item
+                            $itemsProcessed++;
+                            continue;
+                        }
+
+                        // For all other items, add a punch
+                        $newPunch++;
+                        $itemsProcessed++;
+                    }
+                }
+            }
+
+            // Calculate unredeemed punch cards
+            if ($newPunch >= 10) {
+                $unredeemed += floor($newPunch / 10);
+                $newPunch = $newPunch % 10;
+            }
+
+            $update_query = "UPDATE punchcard SET UnrewardedCards='$unredeemed' WHERE CartID='$cartID'";
+            $update_res = mysqli_query($con, $update_query);
+
             $update_query = "UPDATE punchcard SET CurrentPunches='$newPunch' WHERE CartID='$cartID'";
             $update_res = mysqli_query($con, $update_query);
 
+            $_SESSION['unredeemed'] = $unredeemed;
+
             if ($update_res) {
-                // If the discount was applied, subtract 10 punches (redeeming a free drink)
                 if ($_SESSION['subtract'] == 1) {
-                    $newPunch -= 10; // Subtract 10 for the free drink (if applicable)
-                    if ($newPunch < 0) {
-                        $newPunch = 0; // Prevent negative punches
-                    }
-                    $update_query = "UPDATE punchcard SET CurrentPunches='$newPunch' WHERE CartID='$cartID'";
+                    $unredeemed = $unredeemed - 1;
+                    $update_query = "UPDATE punchcard SET UnrewardedCards='$unredeemed' WHERE CartID='$cartID'";
                     $update_res = mysqli_query($con, $update_query);
                 }
 
@@ -114,7 +132,7 @@ if (isset($_POST['pay'])) {
                 unset($_SESSION['itemArray']); 
                 $_SESSION['cartCount'] = 0;
                 header("location: index.php");
-                exit(); 
+                exit();
             }
         }
     }

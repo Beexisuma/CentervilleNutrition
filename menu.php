@@ -1,63 +1,85 @@
-<?php
-include('references/header.php');
+<?php include ('references/header.php'); ?>
 
-// Check if the session for itemArray is set
-if (!isset($_SESSION['itemArray'])) {
-    $_SESSION['itemArray'] = array();
-}
+<div class="main-content main-menu-content">
+    <form method="POST" id="teaForm">
+        <div class="main-menu-choice">
+            <a href="javascript:void(0);" id="menuBtn1" class="main-menu-btn">
+                <img src="references/tea.png" />
+            </a>
+            <h1>Tea Bombs</h1>
+        </div>
+    </form>
 
-// Display success message if any
-if (isset($_SESSION['success_message'])) {
-    echo "<div class='success'>" . $_SESSION['success_message'] . "</div>";
-    unset($_SESSION['success_message']); 
-}
+    <form method="POST" id="shakeForm">
+        <div class="main-menu-choice">
+            <a href="javascript:void(0);" id="menuBtn2" class="main-menu-btn">
+                <img src="references/shake.png" />
+            </a>
+            <h1>Protein Shakes</h1>
+        </div>
+    </form>
 
-$menu_query = mysqli_query($con, "SELECT ItemID, Name, Description, Price, InStock FROM menu");
-$num_rows = mysqli_num_rows($menu_query);
+    <span id="teaBlob"></span>
+    <span id="shakeBlob"></span>
+</div>
 
-if ($num_rows > 0) {
-    echo "<table border='1'>
-    <tr>
-        <th>Name</th>
-        <th>Description</th>
-        <th>Price</th>
-        <th>Add To Cart</th>
-    </tr>";
-    
-    while ($row = $menu_query->fetch_assoc()) {
-        if ($row["InStock"] == 1) {
-            echo "<tr>
-                <td>" . htmlspecialchars($row["Name"]) . "</td>
-                <td>" . htmlspecialchars($row["Description"]) . "</td>
-                <td>" . htmlspecialchars($row["Price"]) . "</td>
-                <td>
-                <form style='display: flex; justify-content: center;' method='POST'>
-                    <input type='hidden' name='item_id' value='" . htmlspecialchars($row["ItemID"]) . "'>
-                    <input type='submit' name='addCart' value='Add to Cart'>
-                </form>
-                </td>
-              </tr>";
-        } 
-    }
-    echo "</table>";
-} else {
-    echo "<p>No items available.</p>";
-}
+<script>
+    let teaHover = document.getElementById("teaBlob");
+    let shakeHover = document.getElementById("shakeBlob");
 
-// Handle Add to Cart
-if (isset($_POST['addCart'])) {
-    $item_id = $_POST['item_id'];
-    $item_query = mysqli_query($con, "SELECT Name FROM menu WHERE ItemID = '$item_id'");
-    $row = $item_query->fetch_assoc();
-    
-    // Store the ItemID in a session variable for customization page
-    $_SESSION['customize_item_id'] = $item_id;
-    
-    // Redirect to the customization page
-    header('Location: customize.php');
-    exit(); 
-}
-?>
+    let teaBtn = document.getElementById("menuBtn1");
+    let shakeBtn = document.getElementById("menuBtn2");
+
+    teaBtn.addEventListener('mouseenter', () => {
+        teaHover.classList.add('menu-hover');
+    });
+
+    teaBtn.addEventListener('mouseleave', () => {
+        teaHover.classList.remove('menu-hover');
+    });
+
+    shakeBtn.addEventListener('mouseenter', () => {
+        shakeHover.classList.add('menu-hover');
+    });
+
+    shakeBtn.addEventListener('mouseleave', () => {
+        shakeHover.classList.remove('menu-hover');
+    });
+
+    // Submit tea form when Tea Bomb image is clicked
+    teaBtn.addEventListener('click', () => {
+        let teaForm = document.getElementById('teaForm');
+        let hiddenInput = document.createElement('input');
+        hiddenInput.type = 'hidden';
+        hiddenInput.name = 'tea';
+        hiddenInput.value = 'Tea'; // Set the type as Tea
+        teaForm.appendChild(hiddenInput);
+        teaForm.submit();
+    });
+
+    // Submit shake form when Protein Shake image is clicked
+    shakeBtn.addEventListener('click', () => {
+        let shakeForm = document.getElementById('shakeForm');
+        let hiddenInput = document.createElement('input');
+        hiddenInput.type = 'hidden';
+        hiddenInput.name = 'shake';
+        hiddenInput.value = 'Shake'; // Set the type as Shake
+        shakeForm.appendChild(hiddenInput);
+        shakeForm.submit();
+    });
+</script>
 
 </body>
 </html>
+
+<?php
+if (isset($_POST['tea'])) {
+    $_SESSION['type'] = 'Tea';
+    header('Location: menuDisplay.php');  // Redirect to menuDisplay.php after selecting Tea
+    exit();
+} elseif (isset($_POST['shake'])) {
+    $_SESSION['type'] = 'Shake';
+    header('Location: menuDisplay.php');  // Redirect to menuDisplay.php after selecting Shake
+    exit();
+}
+?>

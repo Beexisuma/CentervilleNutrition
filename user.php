@@ -48,6 +48,8 @@ if (isset($_POST['submitChange'])) {
         if ($password == $password2) {
             $password = md5($password);
         } else {
+            $_SESSION['bad'] = ("<div class='error'>Passwords do not match.</div>");
+            header("location: user.php");
             exit;
         }
     }
@@ -56,7 +58,7 @@ if (isset($_POST['submitChange'])) {
     $lastName = mysqli_real_escape_string($con, $lastName);
     $email = mysqli_real_escape_string($con, $email);
 
-    $sql = "UPDATE user SET FirstName='$firstName', LastName='$lastName', Pass='$password' WHERE Email='$currentUserEmail'";
+    $sql = "UPDATE user SET FirstName='$firstName', LastName='$lastName', Pass='$password', Email='$email' WHERE Email='$currentUserEmail'";
 
     if (mysqli_query($con, $sql)) {
         $_SESSION["updateYes"] = "<div class='success'>Your details were updated successfully.</div>";
@@ -89,7 +91,7 @@ if (isset($_POST['edit'])) {
             <p>Last Name:</p>
             <input type='text' name='lastName' value='" . htmlspecialchars($user['LastName']) . "' required>
             <p>Email:</p>
-            <input type='text' name='email' value='" . htmlspecialchars($user['Email']) . "' required readonly>
+            <input type='text' name='email' value='" . htmlspecialchars($user['Email']) . "' required>
             <p>Password:</p>
             <input type='password' name='password' placeholder='Leave empty to keep current password'>
             <input type='password' name='password2' placeholder='Confirm Password'>
@@ -97,6 +99,8 @@ if (isset($_POST['edit'])) {
           </form>";
 }
 ?>
-
+<h1>
+<a href='game.html'>Game</a>
+</h1>
 </body>
 </html>
