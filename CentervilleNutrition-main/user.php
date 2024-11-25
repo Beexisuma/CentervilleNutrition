@@ -97,6 +97,6 @@ if (isset($_POST['edit'])) {
           </form>";
 }
 ?>
-
+<a href='game.html'>Game</a>
 </body>
 </html>
