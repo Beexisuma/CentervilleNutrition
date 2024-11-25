@@ -63,11 +63,6 @@ if (isset($_POST['delete'])) {
 
 if (isset($_POST['edit'])) {
     $editUserId = $_POST['editUserId'];
-    if ($editUserId == $_SESSION['email']) {
-        $_SESSION['bad'] = "<div class='error'>You cannot edit the currently logged in user.</div>";
-        header("location: editUser.php");
-        exit;
-    }
     $user_query = mysqli_query($con, "SELECT * FROM user WHERE Email = '$editUserId'");
     $row = $user_query->fetch_assoc();
 
@@ -97,7 +92,7 @@ if (isset($_POST['submitChange'])) {
     $isAdmin = isset($_POST['admin']) ? 1 : 0;
     $originalEmail = $_POST['originalEmail'];
 
-    $sql = "UPDATE user SET FirstName='$firstName', LastName='$lastName', Pass='$password', IsAdmin='$isAdmin', Email='$email' WHERE Email='$originalEmail'";
+    $sql = "UPDATE user SET FirstName='$firstName', LastName='$lastName', Pass='$password', IsAdmin='$isAdmin' WHERE Email='$originalEmail'";
     if (mysqli_query($con, $sql)) {
         $_SESSION["updateYes"] = "<div class='success'>User details updated successfully.</div>";
     } else {

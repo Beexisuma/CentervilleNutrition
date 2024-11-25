@@ -2,6 +2,11 @@
 include('references/header.php');
 
 
+// Check if the session for itemArray is set
+if (!isset($_SESSION['itemArray'])) {
+    $_SESSION['itemArray'] = $dataClass->cartToArray(($dataClass->searchData("cart", "CartID" ,$dataClass->searchData("user", "email", $_SESSION['email'])["CartID"])["ItemList"]));
+}
+
 if (isset($_SESSION['success_message'])) {
     echo "<div class='success'>" . $_SESSION['success_message'] . "</div>";
     unset($_SESSION['success_message']); 
@@ -10,10 +15,6 @@ if (isset($_SESSION['success_message'])) {
 // Set default type to 'Shake' if not already set in the session
 if (!isset($_SESSION['type'])) {
     $_SESSION['type'] = 'Shake'; // Default type is 'Shake'
-}
-
-if(!isset($_SESSION['itemArray'])) {
-    $_SESSION['itemArray'] = array();
 }
 
 // Handle link click to toggle between Shake and Tea
@@ -72,7 +73,7 @@ if (isset($_POST['addCart'])) {
     $row = $item_query->fetch_assoc();
     
     // Store the ItemID in a session variable for customization page
-    $_SESSION['customize_item_id'] = $item_id;
+    $_SESSION['customize_item_id'] = array($item_id);
     
     // Redirect to the customization page
     header('Location: customize.php');
@@ -87,7 +88,3 @@ if (isset($_POST['addCart'])) {
 
 							
 					
-					
-
-
-

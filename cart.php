@@ -1,40 +1,39 @@
 <?php
 include 'references/header.php';
 
+
+$_SESSION['itemArray'] = $dataClass->cartToArray(($dataClass->searchData("cart", "CartID" ,$dataClass->searchData("user", "email", $_SESSION['email'])["CartID"])["ItemList"]));
+
+
+
+
 if (isset($_SESSION['firstName'])) {
 
     // Check if there are items in the cart
     if (isset($_SESSION['itemArray']) && count($_SESSION['itemArray']) > 0) {
         $total = 0;
-
+        
         // Handle item deletion
         if (isset($_POST['deleteButton'])) {
-
             
-            // delete from cart table rather than array
-            $itemIDToRemove = $_POST['itemID'];
+            $itemIDToRemove = $_POST['cartItemID'];
 
-            // Remove the item from the cart
-            if (($key = array_search($itemIDToRemove, $_SESSION['itemArray'])) !== false) {
-                unset($_SESSION['itemArray'][$key]);
-                $_SESSION['itemArray'] = array_values($_SESSION['itemArray']);  // delete this code but not cart count
-                $_SESSION['cartCount'] = $_SESSION['cartCount'] - 1;
-                if ($_SESSION['cartCount'] <= 0) {
+            unset($_SESSION['itemArray'][$itemIDToRemove]);
 
-                    // leave this here
-                    $_SESSION['buySomething'] = "<div class='error'>There are no items in the cart.</div>";
-                }
-            }
+            $_SESSION['itemArray'] = array_values($_SESSION['itemArray']);
+
+            echo $itemIDToRemove;
+
+            $dataClass->updateData('cart','ItemList = "' . $dataClass->cartToString($_SESSION['itemArray']). '"','CartID',$dataClass->searchData("user", "email", $_SESSION['email'])['CartID']);
             header("Location: cart.php");
             exit();
         }
-
+        $cartIndex = 0;
         // Display cart items and calculate the total
         foreach ($_SESSION['itemArray'] as $itemID) {
 
             // select from cart table with updated code
-
-            $sql = "SELECT ItemID, Price, Name, Description FROM menu WHERE ItemID='$itemID'";
+            $sql = "SELECT ItemID, Price, Name, Description FROM menu WHERE ItemID='$itemID[0]'";
             $cartQuery = mysqli_query($con, $sql);
             if ($cartQuery) {
                 while ($row = mysqli_fetch_assoc($cartQuery)) {
@@ -43,21 +42,29 @@ if (isset($_SESSION['firstName'])) {
                     echo "<p><strong>Price:</strong> $" . number_format($row['Price'], 2) . "</p>";
                     echo "<p><strong>Description:</strong> " . htmlspecialchars($row['Description']) . "</p>";
                     echo "<form method='POST'>";
+                    echo "<p><strong>Customizations:</strong></p>";
+                    for($index = 1; $index < count($itemID); $index++)
+                    { 
+                        echo "<p>" . $dataClass->searchData("customization", "CustomizationID", $itemID[$index])['Name'] . "</p>";
+                        $total += $dataClass->searchData("customization", "CustomizationID", $itemID[$index])['Price'];
+                    }
                     echo "<input type='submit' name='deleteButton' value='Delete' />";
-                    echo "<input type='hidden' name='itemID' value='" . $row['ItemID'] . "' />";
+                    echo "<input type='hidden' name='cartItemID' value='" . $cartIndex . "' />";
+                    
                     echo "</form>";
                     echo "</div>";
                     $total += $row['Price'];
+                    $cartIndex++;
                 }
             }
         }
 
         // Apply punch card discount if applicable
         $_SESSION['subtract'] = 0;
-        if($_SESSION['unredeemed'] > 0) {
+        if ($_SESSION['unredeemed'] > 0) {
             echo "<form method='POST' id='punchForm'>";
-            echo "Would you like to redeem a punch card for a free drink?" . "<br>";
-            echo "<input type='checkbox' name='punchCheck' id='punchCheck' /> Yes, redeem a punch card for a free drink";
+            echo "Would you like to redeem 10 punches for a free drink?" . "<br>";
+            echo "<input type='checkbox' name='punchCheck' id='punchCheck' /> Yes, redeem 10 punches for a free drink";
             echo "</form>";
 
             if (isset($_POST['punchCheck']) && $_POST['punchCheck'] == 'on') {
@@ -87,7 +94,7 @@ if (isset($_SESSION['firstName'])) {
 
 <script>
 document.getElementById('punchCheck').addEventListener('change', function() {
-    document.getElementById('punchForm').submit();
+document.getElementById('punchForm').submit();
 });
 </script>
 </body>

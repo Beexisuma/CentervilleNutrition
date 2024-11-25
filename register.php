@@ -61,7 +61,10 @@ if(isset($_POST['submit'])) {
             // Insert the CartID into the punchcard table
             $punchcard_sql = "INSERT INTO punchcard (CartID) VALUES ('$cartID')";
             $punchcard_res = mysqli_query($con, $punchcard_sql);
-
+            
+            $cartid_sql = "INSERT INTO cart (cartID) VALUES ('$cartID')";
+            mysqli_query($con, $cartid_sql);
+            
             // Check if the punchcard insertion was successful
             if ($punchcard_res) {
                 $_SESSION['regSuccess'] = "<div class='success'>User Added Successfully, and CartID assigned to punchcard!</div>";

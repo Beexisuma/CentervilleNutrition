@@ -49,8 +49,13 @@ if (isset($_POST['login'])) {
     $_SESSION['firstName'] = $firstName;
     $_SESSION['loginSuccess'] = "<div class='success'>Login Successful.</div>";
     header("Location: index.php");
-}}
 
+    $unredeemed_query = mysqli_query($con, "SELECT UnrewardedCards FROM punchcard WHERE CartID='$cartID'");
+    if ($unredeemed_query && mysqli_num_rows($unredeemed_query) > 0) {
+        $_SESSION['unredeemed'] = mysqli_fetch_row($unredeemed_query)[0]; 
+}
+}
+}
 ?> 
 <div class="main-content">
     <div class="login-main">

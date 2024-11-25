@@ -8,7 +8,7 @@ if (isset($_SESSION['firstName'])) {
         $totalItems = count($_SESSION['itemArray']);
 
         foreach ($_SESSION['itemArray'] as $itemID) {
-            $sql = "SELECT ItemID, Price, Name, Description FROM menu WHERE ItemID='$itemID'";
+            $sql = "SELECT ItemID, Price, Name, Description FROM menu WHERE ItemID='$itemID[0]'";
             $cartQuery = mysqli_query($con, $sql);
 
             if ($cartQuery) {
@@ -18,6 +18,11 @@ if (isset($_SESSION['firstName'])) {
                     // Check if the item is the first one and we are redeeming
                     if (isset($_SESSION['subtract']) && $_SESSION['subtract'] == 1 && $itemCount == 0) {
                         $itemPrice = 0; // This item is free due to the redemption
+                    }
+
+                    for($custom = 1; $custom < count($itemID); $custom++)
+                    {
+                        $itemPrice += $dataClass->searchData("customization", "CustomizationID", $itemID[$custom])['Price'];
                     }
 
                     echo "<div style='margin: 20px;'>";
@@ -87,7 +92,7 @@ if (isset($_POST['pay'])) {
 
             // Loop through the items in the cart
             foreach ($_SESSION['itemArray'] as $itemID) {
-                $sql = "SELECT ItemID, Price FROM menu WHERE ItemID='$itemID'";
+                $sql = "SELECT ItemID, Price FROM menu WHERE ItemID='$itemID[0]'";
                 $cartQuery = mysqli_query($con, $sql);
 
                 if ($cartQuery) {
@@ -104,6 +109,7 @@ if (isset($_POST['pay'])) {
                         $itemsProcessed++;
                     }
                 }
+                $dataClass->updateData('cart','ItemList = ""','CartID',$dataClass->searchData("user", "email", $_SESSION['email'])['CartID']);
             }
 
             // Calculate unredeemed punch cards

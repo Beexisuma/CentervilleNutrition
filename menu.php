@@ -1,11 +1,5 @@
 <?php include ('references/header.php'); ?>
 
-<<<<<<< WorkingCustomization
-// Check if the session for itemArray is set
-if (!isset($_SESSION['itemArray'])) {
-    $_SESSION['itemArray'] = $dataClass->cartToArray(($dataClass->searchData("cart", "CartID" ,$dataClass->searchData("user", "email", $_SESSION['email'])["CartID"])["ItemList"]));
-}
-=======
 <div class="main-content main-menu-content">
     <form method="POST" id="teaForm">
         <div class="main-menu-choice">
@@ -15,7 +9,6 @@ if (!isset($_SESSION['itemArray'])) {
             <h1>Tea Bombs</h1>
         </div>
     </form>
->>>>>>> main
 
     <form method="POST" id="shakeForm">
         <div class="main-menu-choice">
@@ -30,22 +23,6 @@ if (!isset($_SESSION['itemArray'])) {
     <span id="shakeBlob"></span>
 </div>
 
-<<<<<<< WorkingCustomization
-// Handle Add to Cart
-if (isset($_POST['addCart'])) {
-    $item_id = $_POST['item_id'];
-    $item_query = mysqli_query($con, "SELECT Name FROM menu WHERE ItemID = '$item_id'");
-    $row = $item_query->fetch_assoc();
-    
-    // Store the ItemID in a session variable for customization page
-    $_SESSION['customize_item_id'] = array($item_id);
-    
-    // Redirect to the customization page
-    header('Location: customize.php');
-    exit(); 
-}
-?>
-=======
 <script>
     let teaHover = document.getElementById("teaBlob");
     let shakeHover = document.getElementById("shakeBlob");
@@ -91,7 +68,6 @@ if (isset($_POST['addCart'])) {
         shakeForm.submit();
     });
 </script>
->>>>>>> main
 
 </body>
 </html>
