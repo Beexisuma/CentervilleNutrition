@@ -51,6 +51,17 @@ if (isset($_SESSION['paymentSuccess'])) {
             </div>
         </div>
         <section class="home-bottom">
+    <div class="charlie">
+        <div class="text-content">
+            <h1>New Items</h1>
+            <p>Introducing our New Watermelon Jolly Rancher Tea Bomb!</p>
+        </div>
+        <div class="image-content">
+            <img src="references/Tea.png" alt="Watermelon Jolly Rancher Tea Bomb">
+        </div>
+    </div>
+</section>
+        <section class="home-bottom">
             <h1>About Us</h1>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
         </section>
