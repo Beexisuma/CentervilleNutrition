@@ -40,11 +40,6 @@ if(isset($_SESSION['firstName'])) {
 
 
 $firstName = $_SESSION['firstName'];
-?> 
-
-<div class='main-content' style='margin-left: 5px;'>
-    
-<?php
 
 // display current punch count
 if ($currentPunch == 1) {
@@ -54,6 +49,20 @@ if ($currentPunch == 1) {
 elseif ($currentPunch < 9) {
     echo "Hi " . $_SESSION['firstName'] . " you have " . $currentPunch . " punches on your Centerville Nutrition punch card!" . "<br>";
 }
+
+if($unredeemed > 0) {
+    echo "You have " . $unredeemed . " unredeemed punch cards!" . "<br>";
+}
+
+// punchcard code, use card1, card2, card3 up to card 9
+$imagePath = "references/punch" . $currentPunch . ".png"; 
+        
+        if (file_exists($imagePath)) {
+            echo "<img src='$imagePath' width='600px' alt='Picture of a punch card with current number of punches.'>";
+        } else {
+            echo "Picture of a punch card with current number of punches." . "<br>";
+        }
+
 
 if ($currentPunch < 9 && $currentPunch != 8) {
     echo(9 - $currentPunch) . " more punches and your next drink is free!" . "<br>";
@@ -66,19 +75,6 @@ if ($currentPunch == 9) {
     echo "You have completed 9 punches, and get a free drink!" . "<br>";
 }
 
-// punchcard code, use card1, card2, card3 up to card 9
-$imagePath = "references/punch" . $currentPunch . ".png"; 
-        
-        if (file_exists($imagePath)) {
-            echo "<img src='$imagePath' width='600px' alt='Picture of a punch card with current number of punches.'>";
-        } else {
-            echo "Picture of a punch card with current number of punches." . "<br>";
-        }
-echo "<br>";
-if($unredeemed > 0) {
-    echo "You have " . $unredeemed . " unredeemed punch cards!" . "<br>";
-}
-
 echo "Earn a punch for every item you purchase on your account" . "<br>";
 }
 else {
@@ -86,7 +82,34 @@ header("Location: login.php");
 $_SESSION['mustLogin'] = "<h3 class='error'>You must log in to access this page.</h3>";
 }
 
+
+
+
+
+$random = random_int(1, 5);
+
+if(isset($_POST['gamble'])) {
+    $unredeemed = $unredeemed - 1;
+    $update_query = "UPDATE punchcard SET UnrewardedCards ='$unredeemed' WHERE CartID='$cartID'";
+    mysqli_query($con, $update_query);
+    if ($random == 1) {
+        $unredeemed = $unredeemed + 10;
+        $update_query = "UPDATE punchcard SET UnrewardedCards ='$unredeemed' WHERE CartID='$cartID'";
+        mysqli_query($con, $update_query);
+        header('location: rewards.php');
+
+    }
+    else {
+        header('location: rewards.php');
+    }
+}
+
 ?>
-</div> 
+<br>
+<br>
+
+<form style='margin-left: 5px;' method='POST'>
+    <input type='submit' name='gamble' value='Gamble'>
+</form>
 </body>
 </html>
