@@ -10,7 +10,7 @@ if (isset($_SESSION['firstName'])) {
         foreach ($_SESSION['itemArray'] as $itemID) {
             $sql = "SELECT ItemID, Price, Name, Description FROM menu WHERE ItemID='$itemID[0]'";
             $cartQuery = mysqli_query($con, $sql);
-
+ 
             if ($cartQuery) {
                 while ($row = mysqli_fetch_assoc($cartQuery)) {
                     $itemPrice = $row['Price'];

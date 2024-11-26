@@ -14,7 +14,7 @@ if (isset($_SESSION['success_message'])) {
 
 // Set default type to 'Shake' if not already set in the session
 if (!isset($_SESSION['type'])) {
-    $_SESSION['type'] = 'Shake'; // Default type is 'Shake'
+    $_SESSION['type'] = 'Shake'; 
 }
 
 // Handle link click to toggle between Shake and Tea
@@ -39,7 +39,7 @@ if (isset($_POST['toggleType'])) {
 
 <div class='shake-collection'>
 <div class="collection-grid">
-
+<div class='items'>
 <?php
 $type = $_SESSION['type'];
 $menu_query = mysqli_query($con, "SELECT ItemID, Name, Description, Price, InStock FROM menu WHERE Type='$type'");
@@ -50,16 +50,19 @@ if ($num_rows > 0) {
     // Loop through each item and display it
     while ($row = $menu_query->fetch_assoc()) {
         if ($row["InStock"] == 1) {
-            echo "
-                <div class='collection'>
-						<a class='collection-img' href='#'></a>
-                        <p class='collection-title'>" . htmlspecialchars($row['Name']) . "</p>
-                          <form style='display: flex; justify-content: center;' method='POST'>
-                        <input type='hidden' name='item_id' value='" . htmlspecialchars($row['ItemID']) . "'>
-                        <input type='submit' name='addCart' value='Add to Cart' class='add-to-cart-btn'>
-                    </form>
-				</div>
-            "; 
+          echo "
+    <div class='collection'>
+        <a class='collection-img' href=''>
+            <img src='references/" . $type . ".png' alt='Item Image'>
+        </a>
+        <p class='collection-title'>" . htmlspecialchars($row['Name']) . "</p>
+        <form style='display: flex; justify-content: center;' method='POST'>
+            <input type='hidden' name='item_id' value='" . htmlspecialchars($row['ItemID']) . "'>
+            <input type='submit' name='addCart' value='Add to Cart' class='add-to-cart-btn'>
+        </form>
+    </div>
+";
+
         }
     }
 } else {

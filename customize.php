@@ -1,9 +1,16 @@
 <?php
 include('references/header.php');
 
+
 // Check if the session variable for customization is set
 if (isset($_SESSION['customize_item_id'])) {
     $item_id = $_SESSION['customize_item_id'];
+
+
+    if(isset($_SESSION['customAdded'])){
+        echo $_SESSION['customAdded'];
+        unset($_SESSION['customAdded']);
+    }
 
     // Query to get the selected menu item details
     $item_query = mysqli_query($con, "SELECT ItemID, Name, Description, Price FROM menu WHERE ItemID = '$item_id[0]'");
@@ -82,6 +89,9 @@ if (isset($_POST['addCart']))
     {
         array_push($_SESSION['customize_item_id'], $_POST['customization_id']);
     }
+
+    $_SESSION['customAdded'] = "<div class='success'>Customization added successfully.</div>";
+    header('location: customize.php');
 }
 
 // Handle Add to Cart after customization
