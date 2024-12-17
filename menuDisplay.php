@@ -42,7 +42,7 @@ if (isset($_POST['toggleType'])) {
 <div class='items'>
 <?php
 $type = $_SESSION['type'];
-$menu_query = mysqli_query($con, "SELECT ItemID, Name, Description, Price, InStock FROM menu WHERE Type='$type'");
+$menu_query = mysqli_query($con, "SELECT ItemID, Name, Description, Price, InStock, ImagePath FROM menu WHERE Type='$type'");
 $num_rows = mysqli_num_rows($menu_query);
 
 // Display menu items if available
@@ -50,10 +50,26 @@ if ($num_rows > 0) {
     // Loop through each item and display it
     while ($row = $menu_query->fetch_assoc()) {
         if ($row["InStock"] == 1) {
+            $src;
+            if($row['ImagePath'] == null)
+            {
+                if($_SESSION['type'] == 'Shake')
+                {
+                    $src = "./menuImages/Shake.png";
+                }
+                else
+                {
+                    $src = "./menuImages/Tea.png";
+                }
+            }
+            else
+            {
+                $src = $row['ImagePath'];
+            }
           echo "
     <div class='collection'>
         <a class='collection-img' href=''>
-            <img src='references/" . $type . ".png' alt='Item Image'>
+            <img src='" . $src . "' alt='Item Image'>
         </a>
         <p class='collection-title'>" . htmlspecialchars($row['Name']) . "</p>
         <form style='display: flex; justify-content: center;' method='POST'>

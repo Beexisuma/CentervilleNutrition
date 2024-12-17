@@ -63,6 +63,7 @@ if ($num_rows > 0) {
                 <input type='hidden' name='itemID' value='" . htmlspecialchars($row["ItemID"]) . "'>
                 <input type='submit' name='editItem' value='Edit'>
                 <input style='margin-left: 5px;' type='submit' name='deleteItem' value='Delete'>
+                
             </form>
             </td>
           </tr>";
@@ -74,7 +75,11 @@ if ($num_rows > 0) {
 
 if (isset($_POST['deleteItem'])) {
     $itemID = $_POST['itemID'];
+    $item_query = mysqli_query($con, "SELECT ItemID, Name, Description, Price, InStock, Type, ImagePath FROM menu WHERE ItemID = '$itemID'");
+    $row = $item_query->fetch_assoc();
     mysqli_query($con, "DELETE FROM menu WHERE ItemID='$itemID'");
+    $originalImage = $row["ImagePath"];
+    unlink($originalImage);
     $_SESSION['deleteYes'] = "<div class='success'>Item deleted successfully.</div>";
     header("location: editMenu.php");
     exit;
@@ -82,7 +87,7 @@ if (isset($_POST['deleteItem'])) {
 
 if (isset($_POST['editItem'])) {
     $itemID = $_POST['itemID'];
-    $item_query = mysqli_query($con, "SELECT ItemID, Name, Description, Price, InStock, Type FROM menu WHERE ItemID = '$itemID'");
+    $item_query = mysqli_query($con, "SELECT ItemID, Name, Description, Price, InStock, ImagePath, Type FROM menu WHERE ItemID = '$itemID'");
     $row = $item_query->fetch_assoc();
 
     if ($row) {
@@ -91,13 +96,14 @@ if (isset($_POST['editItem'])) {
         $originalPrice = $row["Price"];
         $originalInStock = $row["InStock"];
         $originalType = $row["Type"];
+        $originalImage = $row["ImagePath"];
 
         $inStockOptions = [
             1 => "Yes",
             0 => "No"
         ];
 
-        echo('<form method="POST">
+        echo('<form method="POST" enctype="multipart/form-data">
         <p>Item Name:</p>
         <input type="text" name="name" value="' . htmlspecialchars($originalName) . '" required>
         <p>Description:</p>
@@ -111,6 +117,8 @@ if (isset($_POST['editItem'])) {
             <option value="1" ' . ($originalInStock == 1 ? "selected" : "") . '>Yes</option>
             <option value="0" ' . ($originalInStock == 0 ? "selected" : "") . '>No</option>
         </select>
+        <p>Image:</p>
+        <input type="file" name="image" accept="image/png" required> 
         <input type="hidden" name="itemID" value="' . htmlspecialchars($itemID) . '">
         <input type="submit" name="submitEdit" value="Submit Changes">
     </form>');
@@ -125,6 +133,7 @@ if (isset($_POST['submitEdit'])) {
     $price = $_POST['price'];
     $itemID = $_POST['itemID'];
     $inStock = $_POST['inStock'];
+    $image = $_POST['image'];
     $type = $_POST['type'];
 
     $name = mysqli_real_escape_string($con, $name);
@@ -132,10 +141,14 @@ if (isset($_POST['submitEdit'])) {
     $price = (float) mysqli_real_escape_string($con, $price);
     $type = mysqli_real_escape_string($con, $type);
 
-    $sql = "UPDATE menu SET Name='$name', Description='$description', Price='$price', InStock='$inStock', Type='$type' WHERE ItemID='$itemID'";
+    $imageName = "./menuImages/" . $name . ".png";
+
+    $sql = "UPDATE menu SET Name='$name', Description='$description', Price='$price', InStock='$inStock', Type='$type', ImagePath='$imageName' WHERE ItemID='$itemID'";
 
     if (mysqli_query($con, $sql)) {
         $_SESSION["updateYes"] = "<div class='success'>Menu item updated successfully.</div>";
+        unlink($originalImage);
+        file_put_contents($imageName, file_get_contents($_FILES['image']['tmp_name']));
     } else {
         $_SESSION['bad'] = "<div class='error'>Error updating menu item: " . mysqli_error($con) . "</div>";
     }
@@ -146,7 +159,7 @@ if (isset($_POST['submitEdit'])) {
 
 if (isset($_POST['addMenuItem'])) {
     echo "
-    <form method='POST'>
+    <form method='POST' enctype='multipart/form-data'>
         <p>Item Name:</p>
         <input type='text' name='name' required>
         <p>Description:</p>
@@ -160,6 +173,8 @@ if (isset($_POST['addMenuItem'])) {
             <option value='1'>Yes</option>
             <option value='0'>No</option>
         </select>
+        <p>Image:</p>
+        <input type='file' name='image' accept='image/png' required> 
         <input type='submit' name='submitAddMenuItem' value='Add Item'>
     </form>";
 }
@@ -169,6 +184,7 @@ if (isset($_POST['submitAddMenuItem'])) {
     $description = $_POST['description'];
     $price = $_POST['price'];
     $type = $_POST['type'];
+    $image = $_POST['image'];
     $inStock = $_POST['inStock'];
 
     $name = mysqli_real_escape_string($con, $name);
@@ -176,12 +192,16 @@ if (isset($_POST['submitAddMenuItem'])) {
     $price = (float) mysqli_real_escape_string($con, $price);
     $type = mysqli_real_escape_string($con, $type);
 
-    $sql = "INSERT INTO menu (Name, Description, Price, InStock, Type) VALUES ('$name', '$description', '$price', '$inStock', '$type')";
+    $imageName = "./menuImages/" . $name . ".png";
+    
+
+    $sql = "INSERT INTO menu (Name, Description, Price, InStock, Type, ImagePath) VALUES ('$name', '$description', '$price', '$inStock', '$type','$imageName')";
 
     if (mysqli_query($con, $sql)) {
         $_SESSION['updateYes'] = "<div class='success'>Menu item added successfully.</div>";
+        file_put_contents($imageName, file_get_contents($_FILES['image']['tmp_name']));
         header("Location: editMenu.php");
-        exit;
+        
     } else {
         $_SESSION['bad'] = "<div class='error'>Error adding menu item: " . mysqli_error($con) . "</div>";
     }
