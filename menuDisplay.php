@@ -3,7 +3,7 @@ include('references/header.php');
 
 
 // Check if the session for itemArray is set
-if (!isset($_SESSION['itemArray'])) {
+if (!isset($_SESSION['itemArray']) && $cartCount != 0) {
     $_SESSION['itemArray'] = $dataClass->cartToArray(($dataClass->searchData("cart", "CartID" ,$dataClass->searchData("user", "email", $_SESSION['email'])["CartID"])["ItemList"]));
 }
 
@@ -15,6 +15,29 @@ if (isset($_SESSION['success_message'])) {
 // Set default type to 'Shake' if not already set in the session
 if (!isset($_SESSION['type'])) {
     $_SESSION['type'] = 'Shake'; 
+}
+
+if (isset($_SESSION['quantity']) && $_SESSION['quantity'] > 1) {
+if(isset($_SESSION['success']) && $_SESSION['success'] == 'yesCustom'){
+    echo "<div class='success'>" . $_SESSION['quantity'] . "x " . "Customized " . $_SESSION['itemName'] . " added successfully.</div>";
+    unset($_SESSION['success']);
+}
+
+if(isset($_SESSION['success']) && $_SESSION['success'] == 'yes'){
+    echo "<div class='success'>" . $_SESSION['quantity'] . "x "  . $_SESSION['itemName'] . " added successfully.</div>";
+    unset($_SESSION['success']);
+}
+}
+else {
+    if(isset($_SESSION['success']) && $_SESSION['success'] == 'yesCustom'){
+        echo "<div class='success'>Customized " . $_SESSION['itemName'] . " added successfully.</div>";
+        unset($_SESSION['success']);
+    }
+    
+    if(isset($_SESSION['success']) && $_SESSION['success'] == 'yes'){
+        echo "<div class='success'>" . $_SESSION['itemName'] . " added successfully.</div>";
+        unset($_SESSION['success']);
+    }
 }
 
 // Handle link click to toggle between Shake and Tea
@@ -50,18 +73,16 @@ if ($num_rows > 0) {
     // Loop through each item and display it
     while ($row = $menu_query->fetch_assoc()) {
         if ($row["InStock"] == 1) {
-          echo "
-    <div class='collection'>
-        <a class='collection-img' href=''>
-            <img src='references/" . $type . ".png' alt='Item Image'>
-        </a>
-        <p class='collection-title'>" . htmlspecialchars($row['Name']) . "</p>
-        <form style='display: flex; justify-content: center;' method='POST'>
-            <input type='hidden' name='item_id' value='" . htmlspecialchars($row['ItemID']) . "'>
-            <input type='submit' name='addCart' value='Add to Cart' class='add-to-cart-btn'>
-        </form>
-    </div>
-";
+            echo "
+            <div class='collection'>
+                <!-- Link to itemDescription.php, passing the item name and ID in the URL -->
+                <a class='collection-img' href='itemDescription.php?&item_name=" . urlencode($row['Name']) . "'> 
+                    <img src='references/" . $type . ".png' alt='Item Image'>
+                </a>
+                <p class='collection-title'>" . htmlspecialchars($row['Name']) . "</p>
+
+            </div>
+        ";  
 
         }
     }
@@ -69,19 +90,7 @@ if ($num_rows > 0) {
     echo "<p>No items available.</p>";
 }
 
-// Handle Add to Cart
-if (isset($_POST['addCart'])) {
-    $item_id = $_POST['item_id'];
-    $item_query = mysqli_query($con, "SELECT Name FROM menu WHERE ItemID = '$item_id'");
-    $row = $item_query->fetch_assoc();
-    
-    // Store the ItemID in a session variable for customization page
-    $_SESSION['customize_item_id'] = array($item_id);
-    
-    // Redirect to the customization page
-    header('Location: customize.php');
-    exit(); 
-}
+
 ?>
 </div>
 </div>

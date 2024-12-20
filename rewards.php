@@ -1,115 +1,90 @@
-<?php include("references/header.php"); ?>
+<?php 
+include("references/header.php"); 
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rewards</title>
-</head>
-<body>
-    
-</body>
-</html>
+if (isset($_SESSION['firstName'])) {
+    // Initialize user data
+    $email = $_SESSION['email'];
+    $cartID_query = mysqli_query($con, "SELECT CartID FROM user WHERE email='$email'");
 
-<?php
-
-
-if(isset($_SESSION['firstName'])) {
-        $email = $_SESSION['email'];
-        $cartID_query = mysqli_query($con, "SELECT CartID FROM user WHERE email='$email'");
-
-        // select CartID for the logged in user, used as primary key between tables
-
-        // if user has a CartID, select it 
-        if ($cartID_query && mysqli_num_rows($cartID_query) > 0) {
+    // Get CartID
+    if ($cartID_query && mysqli_num_rows($cartID_query) > 0) {
         $cartID = mysqli_fetch_row($cartID_query)[0];
 
-        // select current punches from punchcard table, based on cartID
+        // Get current punches and unredeemed cards
         $currentPunch_query = mysqli_query($con, "SELECT CurrentPunches FROM punchcard WHERE CartID='$cartID'");
         if ($currentPunch_query && mysqli_num_rows($currentPunch_query) > 0) {
-            $currentPunch = mysqli_fetch_row($currentPunch_query)[0]; 
+            $currentPunch = mysqli_fetch_row($currentPunch_query)[0];
             $_SESSION['punchCount'] = $currentPunch;
         }
+
         $unredeemed_query = mysqli_query($con, "SELECT UnrewardedCards FROM punchcard WHERE CartID='$cartID'");
         if ($unredeemed_query && mysqli_num_rows($unredeemed_query) > 0) {
-            $unredeemed = mysqli_fetch_row($unredeemed_query)[0]; 
+            $unredeemed = mysqli_fetch_row($unredeemed_query)[0];
             $_SESSION['unredeemed'] = $unredeemed;
-}
         }
-
-
-$firstName = $_SESSION['firstName'];
-
-// display current punch count
-if ($currentPunch == 1) {
-    echo "Hi " . $_SESSION['firstName'] . ", you have " . $currentPunch . " punch on your Centerville Nutrition punch card!" . "<br>";
-}
-
-elseif ($currentPunch < 9) {
-    echo "Hi " . $_SESSION['firstName'] . " you have " . $currentPunch . " punches on your Centerville Nutrition punch card!" . "<br>";
-}
-
-if($unredeemed > 0) {
-    echo "You have " . $unredeemed . " unredeemed punch cards!" . "<br>";
-}
-
-// punchcard code, use card1, card2, card3 up to card 9
-$imagePath = "references/punch" . $currentPunch . ".png"; 
-        
-        if (file_exists($imagePath)) {
-            echo "<img src='$imagePath' width='600px' alt='Picture of a punch card with current number of punches.'>";
-        } else {
-            echo "Picture of a punch card with current number of punches." . "<br>";
-        }
-
-
-if ($currentPunch < 9 && $currentPunch != 8) {
-    echo(9 - $currentPunch) . " more punches and your next drink is free!" . "<br>";
-}
-elseif($currentPunch == 8) {
-echo(9 - $currentPunch) . " more punch and your next drink is free!" . "<br>";
-}
-
-if ($currentPunch == 9) {
-    echo "You have completed 9 punches, and get a free drink!" . "<br>";
-}
-
-echo "Earn a punch for every item you purchase on your account" . "<br>";
-}
-else {
-header("Location: login.php");
-$_SESSION['mustLogin'] = "<h3 class='error'>You must log in to access this page.</h3>";
-}
-
-
-
-
-
-$random = random_int(1, 5);
-
-if(isset($_POST['gamble'])) {
-    $unredeemed = $unredeemed - 1;
-    $update_query = "UPDATE punchcard SET UnrewardedCards ='$unredeemed' WHERE CartID='$cartID'";
-    mysqli_query($con, $update_query);
-    if ($random == 1) {
-        $unredeemed = $unredeemed + 10;
-        $update_query = "UPDATE punchcard SET UnrewardedCards ='$unredeemed' WHERE CartID='$cartID'";
-        mysqli_query($con, $update_query);
-        header('location: rewards.php');
-
     }
-    else {
-        header('location: rewards.php');
+
+    // Display the user's punch card information
+    $firstName = $_SESSION['firstName'];
+
+    // Display the user's punch count
+    echo "<div class='main-content rewards-content'>";
+    echo "<div class='rewards-container'>";
+    echo "<h1>Hi <span>" . htmlspecialchars($firstName) . "!</span></h1>";
+
+    if ($currentPunch == 1) {
+        echo "<h4>You have <span>" . $currentPunch . "</span> punch on your Centerville Nutrition punch card!</h4>";
+    } elseif ($currentPunch < 9) {
+        echo "<h4>You have <span>" . $currentPunch . "</span> punches on your Centerville Nutrition punch card!</h4>";
     }
+
+   
+
+    // Display the punch card image
+    $imagePath = "references/punch" . $currentPunch . ".png";
+    if (file_exists($imagePath)) {
+        echo "<section><img src='$imagePath' width='600px' alt='Picture of a punch card with current number of punches.' /></section>";
+    } else {
+        echo "<section>Picture of a punch card with current number of punches.</section>";
+    }
+
+    // Display how many more punches are needed
+    if ($currentPunch < 9 && $currentPunch != 8) {
+        echo "<h4><span>" . (9 - $currentPunch) . "</span> more punches and your next drink is <span>Free!</span></h4>";
+    } elseif ($currentPunch == 8) {
+        echo "<h4><span>" . (9 - $currentPunch) . "</span> more punch and your next drink is <span>Free!</span></h4>";
+    }
+
+    // If the user has 9 punches, show they have earned a free drink
+    if ($currentPunch == 9) {
+        echo "<h4>You have completed 9 punches, and get a free drink!</h4>";
+    }
+
+    if ($unredeemed > 1) {
+        echo "<h4 style='margin-top: 64px'>";
+        echo "<h4>You have <span>" . $unredeemed . "</span> free drinks available</h4>";
+        echo "</h4>";
+    } elseif ($unredeemed > 0) {
+        echo "<h4 style='margin-top: 64px'>";
+        echo "<h4>You have <span>" . $unredeemed . "</span> free drink available</h4>";
+        echo "</h4>";}
+        echo "<form method='POST'>";
+        echo "<input style='none;' type='submit' name='takeMe' value='Redeem Now!'>";
+        echo "</form>";    
+        echo "<p><span>*Earn a punch</span> for every item you purchase on your account.</p>";
+    echo "</div>";
+    echo "</div>";
+
+
+} else {
+    // Redirect to login page if not logged in
+    header("Location: login.php");
+    $_SESSION['mustLogin'] = "<h3 class='error'>You must log in to access this page.</h3>";
+}
+
+if(isset($_POST['takeMe'])) {
+    header('location: menuDisplay.php');
+    $_SESSION['cartChecked'] = 'yes';
 }
 
 ?>
-<br>
-<br>
-
-<form style='margin-left: 5px;' method='POST'>
-    <input type='submit' name='gamble' value='Gamble'>
-</form>
-</body>
-</html>

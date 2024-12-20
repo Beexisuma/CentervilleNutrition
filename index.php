@@ -39,7 +39,7 @@ if (isset($_SESSION['paymentSuccess'])) {
             </div>
             <div class="welcome-title">
                 <h3>Schedule A Visit Today</h3>
-                <h1>It's <a href="images/elkinoak-main/index.php" style="text-decoration: none; color: #463437;">Our</a> Treat</h1>
+                <h1>It's Our Treat</h1>
             </div>
             <div class="welcome-card welcome-facts2">
                 <h4 class="welcome-styled">Knockout</h4>
@@ -51,7 +51,7 @@ if (isset($_SESSION['paymentSuccess'])) {
             </div>
         </div>
         <section class="home-bottom">
-    <div class="charlie">
+    <!-- <div class="charlie">
         <div class="text-content">
             <h1>New Items</h1>
             <p>Introducing our New Watermelon Jolly Rancher Tea Bomb!</p>
@@ -59,12 +59,24 @@ if (isset($_SESSION['paymentSuccess'])) {
         <div class="image-content">
             <img src="references/Tea.png" alt="Watermelon Jolly Rancher Tea Bomb">
         </div>
-    </div>
-</section>
-        <section class="home-bottom">
-            <h1>About Us</h1>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+    </div> -->
+            <h1>Sign Up Today to get a free drink!</h1>
+            <form method='POST' style='display: flex; justify-content: center; height: 100px;'>
+                <input type='submit' name='submit' value='Sign Up!'>
+</form>
         </section>
     </div>
 </body>
 </html>
+
+
+<?php 
+if (isset($_SESSION['firstName']) && isset($_POST['submit'])) {
+    header('location: index.php');
+}
+if(isset($_POST['submit'])) {
+    $_SESSION['freeDrink'] = "true";
+    header('location: register.php');
+}
+?>
+<?php include('footer.php'); ?> 
