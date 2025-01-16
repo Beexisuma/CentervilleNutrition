@@ -32,7 +32,7 @@
 	height: 19vw;
 	width: 19vw;
 	border-radius: 50%;
-	border: 2px solid var(--light3);
+	border: 2px solid var(--lightA);
 	
 	display: flex;
 	justify-content: center;
