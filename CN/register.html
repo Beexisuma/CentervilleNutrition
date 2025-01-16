@@ -27,15 +27,56 @@
         <div class="container sign-in">
 				
 				
-		
-				<form class="sign-form">
-					<h1>Sign In</h1>
-					<p>Email</p>
-					<input class="reg-text" type="text"/>
-					<p>Password</p>
-					<input class="reg-text" type="text"/>
-					<input class="reg-submit" type="submit" value="Sign In"/>
-				</form>
+				<section id="sign-in" class="">
+					<form class="sign-form" method="POST">
+						<h1>Sign In</h1>
+						<p>Email</p>
+						<input class="reg-text" type="text" name="email" required/>
+						<p>Password</p>
+						<input class="reg-text" type="password" name="password" required/>
+						<input class="reg-submit" name="log-in" type="submit" value="Sign In"/>
+					</form>
+						<p class="register-link-text">New to Centerville Nutrition?</p>
+						<button class="create-account-link" onclick="register(1)">Create Account</button>
+				</section>
+				
+				
+				
+				<section id="register" class="POP">
+					<form class="sign-form" method="POST">
+						<h1>Create Account</h1>
+						<p>Email</p>
+						<input class="reg-text reg-text2" type="text" name="email" required style="width: 100%"/>
+						
+						<section>
+							
+							<span>
+								<p>First Name</p>
+								<input class="reg-text reg-text2" type="text" name="firstName" required/>
+							</span>
+							
+							<span>
+								<p>Last Name</p>
+								<input class="reg-text reg-text2" type="text" name="lastName" required/>
+							</span>
+							
+							<span>
+								<p>Password</p>
+								<input class="reg-text reg-text2" type="password" name="password1" required/>	
+							</span>
+							
+							<span>
+								<p>Confirm Password</p>
+								<input class="reg-text reg-text2" type="password" name="password2" required/>
+							</span>		
+				
+						</section>
+						
+						<input class="reg-submit" type="submit" value="Create Account"/>
+					</form>
+						<p class="register-link-text">Already have an account?</p>
+						<button class="sign-up-link" onclick="register(2)">Sign In</button>
+				</section>
 				
 				<a class="logo alt-logo" href="index.html">
                     <h1>Centerville Nutrition</h1>
@@ -44,4 +85,25 @@
                         <div class="logoUnder2"></div>
                     </span>
                 </a>
+			</div>
 		</div>
+</body>
+
+<script>
+
+let sign = document.getElementById('sign-in');
+let reg = document.getElementById('register');
+
+function register(val) {
+	if (val == 1) {
+		sign.classList.add("POP");
+		reg.classList.remove("POP");
+	} else if (val == 2) {
+		reg.classList.add("POP");
+		sign.classList.remove("POP");
+	}
+}
+
+</script>
+
+</html>
