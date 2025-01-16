@@ -148,11 +148,13 @@
 
 .pay-inputs p {
 	width: 8w;
-	font-size: 1.8vw;
+	font-size: 1.6vw;
+	display: flex;
+	align-items: center;
 }
 
 .pay-inputs input {
-	height: 3vw;
+	height: 2.4vw;
 	font-size: 1.4vw;
 	padding: 0 0.6vw;
 	text-align: left;
@@ -163,6 +165,8 @@
 .pay-inputs span {
 	display: flex;
 	gap: 32px;
+	display: flex;
+	align-items: center;
 }
 
 .pay-inputs select {
@@ -174,8 +178,8 @@
 }
 
 .submit-pay {
-	width: 70%;
-	font-size: 1.8vw;
+	width: 60%;
+	font-size: 1.4vw;
 	color: var(--light1);
 	background-color: var(--dark1);
 	padding: 12px 0;
@@ -189,6 +193,30 @@
 	opacity: 0.9;
 }
 
+@media only screen and (min-width: 1400px) {
+	.other-btn {
+		width: 10.1vw;
+		height: 3.1vw;
+	}
+	pay-inputs p {
+		font-size: 1.2vw;
+	}
+	
+	.pay-inputs input {
+		height: 2.4vw;
+		font-size: 1.2vw;
+	}
+	
+	.submit-pay {
+		font-size: 1.2vw;
+		width: 50%;
+	}
+	
+	.pay-inputs select {
+		font-size: 1.2vw;
+		padding: 0.3vw 0.6vw;
+	}
+}
 
 
 
