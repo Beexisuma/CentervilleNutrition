@@ -132,6 +132,7 @@
 
 .reg-error {
 	color: var(--error) !important;
+	list-style-type: circle;
 }
 
 .create-account-link, .sign-up-link {
