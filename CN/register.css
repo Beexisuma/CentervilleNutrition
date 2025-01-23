@@ -29,13 +29,13 @@
 	font-weight: 200;
 }
 
-.sign-form section {
+/*.sign-form section {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
 	column-gap: 32px;
 	row-gap: 18px;
 	width: 100%;
-}
+}*/
 
 .reg-text {
 	font-size: 20px;
@@ -56,6 +56,44 @@
 	outline: 1px solid var(--dark1);
 }
 
+.regPass-title {
+	font-size: 18px !important;
+	font-weight: 500;
+	margin-bottom: 12px;
+}
+
+.regPass {
+	display: flex;
+	gap: 18px;
+	justify-content: center;
+	align-items: flex-start;
+}
+
+.regPass ul {
+	margin-bottom: 12px;
+	margin-left: -18px;
+}
+
+.regPass li {
+	margin-bottom: 2px;
+}
+
+.reg-next {
+	display: block;
+	font-size: 18px;
+	color: var(--dark1);
+	background-color: transparent;
+	border: none;
+	text-decoration: underline;
+	cursor: pointer;
+	text-align:center;
+	margin: 0 auto;
+}
+
+.reg-next:hover {
+	opacity: 0.8;
+}
+
 .reg-submit {
 	font-size: 18px;
 	background-color: var(--dark1);
@@ -68,6 +106,7 @@
 	cursor: pointer;
 	font-weight: 200;
 	font-family: "Geologica", sans-serif;
+	display: block;
 }
 
 .reg-submit:hover {
@@ -78,12 +117,21 @@
 	transform: scale(0.99);
 }
 
+.reg-submit:disabled {
+	opacity: 0.3;
+	color: var(--light3);
+}
+
 .register-link-text {
 	font-size: 14px;
-	margin-top: 18px;
+	padding-top: 18px;
 	font-weight: 500;
 	width: 100%;
 	text-align: center;
+}
+
+.reg-error {
+	color: var(--error) !important;
 }
 
 .create-account-link, .sign-up-link {
@@ -147,6 +195,15 @@
 		position: relative;
 		margin-left: -24px;
 		margin-top: 24px;
+	}
+	
+	.regPass {
+		flex-direction: column;
+		align-items: center;
+	}
+	
+	.register-link-text {
+		border-top: 1px solid var(--lightA);
 	}
 	
 	
