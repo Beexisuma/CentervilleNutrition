@@ -34,7 +34,7 @@
 						<input class="reg-text" type="text" name="email" required/>
 						<p>Password</p>
 						<input class="reg-text" type="password" name="password" required/>
-						<input class="reg-submit" name="log-in" type="submit" value="Sign In"/>
+						<input class="reg-submit" name="login" type="submit" value="Sign In"/>
 					</form>
 						<p class="register-link-text">New to Centerville Nutrition?</p>
 						<button class="create-account-link" onclick="register(1)">Create Account</button>
@@ -44,35 +44,54 @@
 				
 				<section id="register" class="POP">
 					<form class="sign-form" method="POST">
+
 						<h1>Create Account</h1>
-						<p>Email</p>
-						<input class="reg-text reg-text2" type="text" name="email" required style="width: 100%"/>
+						<section id="regPage1">
+							
+							
+							<p>Email</p>
+							<input class="reg-text reg-text2" type="text" name="email" required style="width: 100%"/>
+							
+							<p>First Name</p>
+							<input class="reg-text reg-text2" type="text" name="firstName" required/>
 						
-						<section>
-							
-							<span>
-								<p>First Name</p>
-								<input class="reg-text reg-text2" type="text" name="firstName" required/>
-							</span>
-							
-							<span>
-								<p>Last Name</p>
-								<input class="reg-text reg-text2" type="text" name="lastName" required/>
-							</span>
-							
-							<span>
-								<p>Password</p>
-								<input class="reg-text reg-text2" type="password" name="password1" required/>	
-							</span>
-							
-							<span>
-								<p>Confirm Password</p>
-								<input class="reg-text reg-text2" type="password" name="password2" required/>
-							</span>		
-				
+							<p>Last Name</p>
+							<input class="reg-text reg-text2" type="text" name="lastName" required/>
+
+							<button class="reg-next" onclick="nextPage()" type="button">Next</button>
 						</section>
 						
-						<input class="reg-submit" type="submit" value="Create Account"/>
+						<section id="regPage2" class="POP">
+
+							<span class="regPass">
+								<section>
+									<h3 class="regPass-title">Password Requirements</h3>
+								
+									<ul>
+										<li class="reg-error" id="req0">Passwords must match</li>
+										<li class="reg-error" id="req1">At least 8 characters</li>
+										<li class="reg-error" id="req2">At least 1 uppercase letter</li>
+										<li class="reg-error" id="req3">At least 1 lowercase letter</li>
+										<li class="reg-error" id="req4">At least 1 number</li>
+										<li class="reg-error" id="req5">At least 1 special character</li>
+									</ul>
+								</section>
+						
+								<section>
+									<p>Password</p>
+									<input class="reg-text reg-text2" type="password" name="password" id="password1" onkeyup="checkPassword()" required/>	
+								
+									<p>Confirm Password</p>
+									<input class="reg-text reg-text2" type="password" name="password2" id="password2" onkeyup="checkPassword()" required/>
+								</section>
+							</span>
+							
+							<button class="reg-next" onclick="nextPage()" type="button" style="margin-bottom: 24px">Back</button>
+							
+							<input name="submit" id="accountSubmit" class="reg-submit" type="submit" value="Create Account" disabled/>
+						</section>
+						
+						
 					</form>
 						<p class="register-link-text">Already have an account?</p>
 						<button class="sign-up-link" onclick="register(2)">Sign In</button>
@@ -91,6 +110,9 @@
 
 <script>
 
+
+//Page formatting
+
 let sign = document.getElementById('sign-in');
 let reg = document.getElementById('register');
 
@@ -103,6 +125,78 @@ function register(val) {
 		sign.classList.remove("POP");
 	}
 }
+
+function nextPage() {
+	document.getElementById("regPage1").classList.toggle("POP");
+	document.getElementById("regPage2").classList.toggle("POP");
+}
+
+
+
+//Password requirements for account creation
+let passwordStrong = false; 
+
+
+
+
+        function checkPassword() {
+			//passwords
+			let submit = document.getElementById("accountSubmit");
+			
+			var password1 = document.getElementById("password1").value.trim();
+			var password2 = document.getElementById("password2").value.trim();
+			
+			
+			console.log(password1 + ", " + password2)
+			//req0
+			var match = password1 === password2 && password1 != ""
+			
+			//req1
+            var length = password1.length >= 8;
+
+            //req2
+            var upper = /[A-Z]/.test(password1);
+
+            //req3
+            var lower = /[a-z]/.test(password1);
+
+            //req4
+            var number = /\d/.test(password1);
+
+            //req5
+            var special = /[!@#$%^&*(),.?:{}|<>]/.test(password1.trim());
+
+			//Check reqs
+			let reqs = [match, length, upper, lower, number, special]
+			
+			for (let i = 0; i <= 5; i++) {
+				if (!reqs[i]) {
+					document.getElementById("req" + i).classList.add("reg-error");
+				} else {
+					document.getElementById("req" + i).classList.remove("reg-error");
+				}
+			}
+
+            //Final check
+            passwordGood = match && length && upper && lower && number && special;
+			console.log("Match:" + match);
+			console.log("Upper:" + upper);
+			console.log("Lower:" + lower);
+			console.log("Number:" + number);
+			console.log("Special:" + special);
+			console.log("Final:" + passwordGood);
+			console.log("\nSTOP\n")
+
+            if(passwordGood) {
+				submit.disabled = false;
+			} else {
+				submit.disabled = true;
+			}
+            
+        }
+
+
+
 
 </script>
 
