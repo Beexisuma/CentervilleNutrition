@@ -153,6 +153,69 @@
 }
 
 
+.featured {
+	height: 400px;
+	width: 100%;
+	padding: 0 16px;
+	background-color: transparent;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	margin-top: 24px;
+	margin-bottom: 42px;
+}
+
+.featureShake, .featureTea {
+	width: 24vw;
+	aspect-ratio: 3/2;
+	border-radius: 16px;
+	background-color: transparent;
+	border: 0px solid var(--dark1);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: flex-start;
+	padding: 12px;
+	color: var(--dark1);
+	outline: 4px solid var(--dark1);
+}
+
+.featureShake h6, .featureTea h6 {
+	font-size: 24px;
+	margin-bottom: 18px;
+	text-transform: uppercase;
+	font-weight: 500;
+}
+
+.featureShake h6 {
+	color: var(--yellow1);
+}
+
+.featureTea h6 {
+	color: var(--green1);
+}
+
+
+.featureShake img, .featureTea img {
+	width: 124px;
+	aspect-ratio: 1/1;
+	border-radius: 64px;
+}
+
+.featureShake img {
+	outline: 4px solid var(--yellow2);
+}
+.featureTea img {
+	outline: 4px solid rgba(123, 224, 173, 0.7);
+	
+}
+
+.featured-title {
+	font-size: 36px;
+	text-align: center;
+	font-weight: 200;
+}
+
 .home-bottom h1 {
     font-weight: 200;
     font-size: 2.8rem;
@@ -202,15 +265,10 @@
 }
 
 
-.schedule-day:nth-child(1) {
+.sunday {
     background-color: rgba(255, 193, 54, 0.6);
 }
 
-
-.schedule-day:nth-child(7) {
-    background-color: var(--error);
-    color: var(--light1);
-}
 
 
 .schedule-day h1 {
@@ -223,6 +281,11 @@
     text-align: center;
     padding: 16px 8px;
     margin: 0;
+}
+
+.day-closed {
+	background-color: var(--error);
+    color: var(--light1);
 }
 
 
@@ -335,52 +398,24 @@
 
 
     .home-schedule {
-        padding: 32px 8px !important;
-        gap: 0 !important;
+        gap: 24px;
+		flex-direction: column !important;
     }
-
 
     .schedule-day {
-        width: 17vw !important;
-        border: none !important;
-        height: 190px !important;
-        border-radius: 0 !important;
+        width: 250px;
+		height: 120px;
+		margin: 0 auto;
     }
-
-
-    .schedule-day:nth-child(7) p {
-        font-size: 1rem !important;
-    }
-
 
     .schedule-day h1 {
-        font-size: 2.4rem !important;
+        font-size: 36px;
     }
 
 
     .schedule-day p {
-        font-size: 1.2rem !important;
-        display: none;
-    }
-
-
-    .schedule-day:nth-child(4) p {
-        display: block !important;
-    }
-
-
-    .schedule-day:nth-child(1) p {
-        display: block !important;
-    }
-
-
-    .schedule-day:nth-child(7) p {
-        display: block !important;
-    }
-
-
-    .schedule-day span {
-        display: none;
+        font-size: 24px;
+        
     }
 
 
