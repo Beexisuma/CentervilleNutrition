@@ -1,0 +1,281 @@
+<?php include('header/header.php');
+
+if (isset($_SESSION['loginSuccess'])) {
+    echo "<script>alert('Login Successful!');</script>";
+    unset($_SESSION['loginSuccess']);
+}
+
+if (isset($_SESSION['mustLogin'])) {
+    echo $_SESSION['mustLogin'];
+    unset($_SESSION['mustLogin']);
+}
+
+if (isset($_SESSION['paymentSuccess'])) {
+    echo $_SESSION['paymentSuccess'];
+    unset($_SESSION['paymentSuccess']);
+}
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Centerville Nutrition</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playball&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Geologica:wght@100..900&family=Playball&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="main-content home-content">
+                <div class="home-welcome">
+                    <div class="welcome-card welcome-facts1">
+                        <h4 class="welcome-styled">Signature</h4>
+                        <h1>Tea Bombs</h1>
+                        <h2><span class="welcome-display">25</span> Calories</h2>
+                        <h2><span class="welcome-display">0</span> Sugars</h2>
+                        <p>Boosts metabolism and energy levels</p>
+                        <p>
+                            Packed with <span>C</span>, <span>B6</span>, &
+                            <span>B12</span> vitamins
+                        </p>
+                    </div>
+                    <div class="welcome-title">
+                        <h3>Schedule A Visit Today</h3>
+                        <h1>It's Our Treat</h1>
+                        <!--Arrow down icon--><svg
+                            version="1.1"
+                            viewBox="0.0 0.0 166.11286089238845 164.41207349081364"
+                            fill="none"
+                            stroke="none"
+                            stroke-linecap="square"
+                            stroke-miterlimit="10"
+                            xmlns:xlink="http://www.w3.org/1999/xlink"
+                            xmlns="http://www.w3.org/2000/svg"
+                        >
+                            <clipPath id="p.0">
+                                <path
+                                    d="m0 0l166.11285 0l0 164.41208l-166.11285 0l0 -164.41208z"
+                                    clip-rule="nonzero"
+                                />
+                            </clipPath>
+                            <g clip-path="url(#p.0)">
+                                <path
+                                    fill="#000000"
+                                    fill-opacity="0.0"
+                                    d="m0 0l166.11285 0l0 164.41208l-166.11285 0z"
+                                    fill-rule="evenodd"
+                                />
+                                <path
+                                    fill="#000000"
+                                    fill-opacity="0.0"
+                                    d="m23.158195 4.0006585l59.89779 45.65153"
+                                    fill-rule="evenodd"
+                                />
+                                <path
+                                    stroke="#463437"
+                                    stroke-width="8.0"
+                                    stroke-linejoin="round"
+                                    stroke-linecap="round"
+                                    d="m23.158195 4.0006585l59.89779 45.65153"
+                                    fill-rule="evenodd"
+                                />
+                                <path
+                                    fill="#000000"
+                                    fill-opacity="0.0"
+                                    d="m142.95377 4.0006585l-59.89778 45.65153"
+                                    fill-rule="evenodd"
+                                />
+                                <path
+                                    stroke="#463437"
+                                    stroke-width="8.0"
+                                    stroke-linejoin="round"
+                                    stroke-linecap="round"
+                                    d="m142.95377 4.0006585l-59.89778 45.65153"
+                                    fill-rule="evenodd"
+                                />
+                                <path
+                                    fill="#000000"
+                                    fill-opacity="0.0"
+                                    d="m23.158195 65.06661l59.89779 45.651527"
+                                    fill-rule="evenodd"
+                                />
+                                <path
+                                    stroke="#463437"
+                                    stroke-width="8.0"
+                                    stroke-linejoin="round"
+                                    stroke-linecap="round"
+                                    d="m23.158195 65.06661l59.89779 45.651527"
+                                    fill-rule="evenodd"
+                                />
+                                <path
+                                    fill="#000000"
+                                    fill-opacity="0.0"
+                                    d="m142.95377 65.06661l-59.89778 45.651527"
+                                    fill-rule="evenodd"
+                                />
+                                <path
+                                    stroke="#463437"
+                                    stroke-width="8.0"
+                                    stroke-linejoin="round"
+                                    stroke-linecap="round"
+                                    d="m142.95377 65.06661l-59.89778 45.651527"
+                                    fill-rule="evenodd"
+                                />
+                            </g>
+                        </svg>
+                    </div>
+                    <div class="welcome-card welcome-facts2">
+                        <h4 class="welcome-styled">Knockout</h4>
+                        <h1>Protein Shakes</h1>
+                        <h2><span class="welcome-display">27g</span> Protein</h2>
+                        <h2><span class="welcome-display">250</span> Calories</h2>
+                        <h2><span class="welcome-display"><11g</span> Sugar</h2>
+                        <p>Loaded with <span>21</span> vitamins & minerals</p>
+                    </div>
+                </div>
+
+
+                <div class="home-wave">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 190">
+                        <path
+                            fill="var(--light2)"
+                            fill-opacity="1"
+                            d="M0,76L40,66.5C80,57,160,38,240,47.5C320,57,400,95,480,101.3C560,108,640,82,720,79.2C800,76,880,95,960,98.2C1040,101,1120,89,1200,79.2C1280,70,1360,63,1440,79.2C1520,95,1600,133,1680,123.5C1760,114,1840,57,1920,44.3C2000,32,2080,63,2160,88.7C2240,114,2320,133,2400,145.7C2480,158,2560,165,2640,161.5C2720,158,2800,146,2880,120.3C2960,95,3040,57,3120,41.2C3200,25,3280,32,3360,41.2C3440,51,3520,63,3600,69.7C3680,76,3760,76,3840,76C3920,76,4000,76,4080,72.8C4160,70,4240,63,4320,69.7C4400,76,4480,95,4560,85.5C4640,76,4720,38,4800,44.3C4880,51,4960,101,5040,101.3C5120,101,5200,51,5280,38C5360,25,5440,51,5520,76C5600,101,5680,127,5720,139.3L5760,152L5760,190L5720,190C5680,190,5600,190,5520,190C5440,190,5360,190,5280,190C5200,190,5120,190,5040,190C4960,190,4880,190,4800,190C4720,190,4640,190,4560,190C4480,190,4400,190,4320,190C4240,190,4160,190,4080,190C4000,190,3920,190,3840,190C3760,190,3680,190,3600,190C3520,190,3440,190,3360,190C3280,190,3200,190,3120,190C3040,190,2960,190,2880,190C2800,190,2720,190,2640,190C2560,190,2480,190,2400,190C2320,190,2240,190,2160,190C2080,190,2000,190,1920,190C1840,190,1760,190,1680,190C1600,190,1520,190,1440,190C1360,190,1280,190,1200,190C1120,190,1040,190,960,190C880,190,800,190,720,190C640,190,560,190,480,190C400,190,320,190,240,190C160,190,80,190,40,190L0,190Z"
+                        ></path>
+                    </svg>
+                </div>
+
+
+                <section class="home-bottom">
+					
+                    <h1 class="home-bottom-title">About Us</h1>
+                    <p>
+                    At Centerville Nutrition, we believe in fueling both the body and the soul with the best of nature’s offerings. Specializing in delicious protein shakes and energizing teas, we’re dedicated to providing high-quality, nutrient-rich products that help you feel your best. We value good people and good nutrients, and our mission is to support your wellness journey with every sip. Whether you're powering through a workout or just need an energy boost, we’re here to nourish and uplift you with every product we create.
+                    </p>
+				
+                    <div class="home-wave">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 240">
+                            <path
+                                fill="var(--light3)"
+                                fill-opacity="1"
+                                d="M0,96L48,90.7C96,85,192,75,288,90.7C384,107,480,149,576,165.3C672,181,768,171,864,154.7C960,139,1056,117,1152,112C1248,107,1344,117,1392,122.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
+                            ></path>
+                        </svg>
+                    </div>
+
+
+                    <section>
+                        <h1 class="home-bottom-title">Open Hours</h1>
+
+
+                        <div class="home-schedule">
+                            <?php 
+                                 for($d=0;$d<7;$d++)
+                                 {
+                                     $dayData = $dataClass->searchData("hours", "ID", $d);
+                                     if(!$dayData["isOpen"])
+                                     {
+                                        echo "<div class='schedule-day day-closed'><h1>" . $dayData["Day"] . "</h1><p>Closed</p></div>";
+                                     }
+                                     elseif($dayData["Open"] != 8 || $dayData["Close"] != 5)
+                                     {
+                                        echo "<div class='schedule-day sunday'><h1>" . $dayData["Day"] . "</h1><p>". $dayData["Open"] .":00am - " . $dayData["Close"] . ":00pm</p></div>";
+                                     }
+                                     else
+                                     {
+                                        echo "<div class='schedule-day'><h1>" . $dayData["Day"] . "</h1><p>". $dayData["Open"] .":00am - " . $dayData["Close"] . ":00pm</p></div>";
+                                     }
+                                     
+                                 }
+                            ?>
+                        </div>
+
+
+                        <div class="socials">
+                            <!--facebook icon--><a
+                                href="https://www.facebook.com/centervillenutritionoh/"
+                                ><svg
+                                    class="social-icon"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 320 512"
+                                >
+                                    <!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                                    <path
+                                        d="M80 299.3V512H196V299.3h86.5l18-97.8H196V166.9c0-51.7 20.3-71.5 72.7-71.5c16.3 0 29.4 .4 37 1.2V7.9C291.4 4 256.4 0 236.2 0C129.3 0 80 50.5 80 159.4v42.1H14v97.8H80z"
+                                    />
+                                </svg>
+                            </a>
+                            <!--instagram icon--><a
+                                href="https://www.instagram.com/centervillenutrition/?hl=en"
+                                ><svg
+                                    class="social-icon"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 448 512"
+                                >
+                                    <!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                                    <path
+                                        d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"
+                                    />
+                                </svg>
+                            </a>
+                        </div>
+
+
+                        <a
+                            class="home-address"
+                            href="https://www.google.com/maps/place/HerbaLife+-+Centerville+Nutrition/@39.6290595,-84.1458033,17z/data=!3m1!4b1!4m6!3m5!1s0x88408f8ef8c797cd:0x4759f44f4699af9a!8m2!3d39.6290595!4d-84.1432284!16s%2Fg%2F11rwx2892d?entry=ttu&g_ep=EgoyMDI0MTExMC4wIKXMDSoASAFQAw%3D%3D"
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
+                                <!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                                <path
+                                    d="M215.7 499.2C267 435 384 279.4 384 192C384 86 298 0 192 0S0 86 0 192c0 87.4 117 243 168.3 307.2c12.3 15.3 35.1 15.3 47.4 0zM192 128a64 64 0 1 1 0 128 64 64 0 1 1 0-128z"
+                                />
+                            </svg>
+
+
+                            <h2>869 E Franklin St, Centerville, Ohio</h2>
+                            <!-- <iframe src="https://www.google.com/maps/embed?pb=!4v1740165843497!6m8!1m7!1sCAoSLEFGMVFpcE90X0dxNXhXdklmLTlTMDZ0TnpsX3RRb2tBaHlZYTMyd3ZnS3RU!2m2!1d51.38838777077809!2d30.09859354513141!3f103.60376686951322!4f14.525441543907405!5f0.7820865974627469" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> -->
+                        </a>
+                    </section>
+                </section>
+            </div>
+        </div>
+    </body>
+</html>
+
+
+
+
+
+
+
+<?php 
+if (isset($_SESSION['firstName']) && isset($_POST['submit'])) {
+    header('location: index.php');
+}
+if(isset($_POST['submit'])) {
+    $_SESSION['freeDrink'] = "true";
+    header('location: login.php');
+}
+
+    for($d=0;$d<7;$d++)
+    {
+        $dayData = $dataClass->searchData("hours", "ID", $d);
+        if(!$dayData["isOpen"])
+        {
+            // echo "<div style='color:red;'>" . $dayData["Day"] . ": Closed</div>";
+        }
+        elseif($dayData["Open"] != 8 || $dayData["Close"] != 5)
+        {
+            // echo "<div style='color:orange;'>" . $dayData["Day"] . ": ". $dayData["Open"] .":00am - " . $dayData["Close"] . ":00pm</div>";
+        }
+        else
+        {
+            // echo "<div style='color:green;'>" . $dayData["Day"] . ": ". $dayData["Open"] .":00am - " . $dayData["Close"] . ":00pm</div>";
+        }
+        
+    }
+?>
+
+                   
