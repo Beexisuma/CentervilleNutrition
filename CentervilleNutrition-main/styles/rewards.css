@@ -1,0 +1,150 @@
+.rewards-content {
+    width: 100%;
+    height: 100%;
+    background-color: var(--light3);
+    overflow-x: hidden;
+
+
+    display: flex;
+    justify-content: center;
+}
+
+
+.rewards-container {
+    width: 60vw;
+    overflow-y: auto;
+    padding: 36px 64px;
+    background-color: var(--light1);
+    max-height: 100%;
+
+
+    display: flex;
+    flex-direction: column;
+	
+	border-left: 1px solid var(--dark1);
+	border-right: 1px solid var(--dark1);
+}
+
+
+.rewards-container h1 {
+    font-size: 32px;
+    font-weight: 200;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+
+.rewards-container h4 {
+    font-size: 24px;
+    font-weight: 200;
+    width: 100%;
+    line-height: 1.5;
+}
+
+
+.rewards-container p {
+    font-size: 16px;
+    font-size: 200;
+    margin-top: 8px;
+    width: 100%;
+}
+
+
+.rewards-container span {
+    font-weight: bold;
+}
+
+
+.rewards-container img {
+    width: 400px;
+    margin: 12px 0;
+    transform: rotate(-18deg);
+}
+
+
+.rewards-content section {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.rewards-container a {
+    text-decoration: none;
+    color: var(--light1);
+    background-color: var(--dark1);
+    border-radius: 50px;
+    font-size: 20px;
+    border: 2px solid var(--dark1);
+    transition: 0.2s;
+    width: fit-content;
+    padding: 6px 16px;
+    margin-top: 12px;
+
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.rewards-container a:hover {
+    background-color: transparent;
+    color: var(--dark1);
+}
+
+
+.rewards-container a:active {
+    transform: scale(0.98);
+}
+
+
+@media only screen and (max-width: 1000px) {
+    .rewards-container {
+        width: 80vw;
+        padding: 24px 36px;
+    }
+
+
+    .rewards-container h4 {
+        font-size: 18px;
+        display: inline;
+    }
+
+
+    .rewards-container p {
+        font-size: 12px;
+    }
+
+
+    .rewards-container img {
+        width: 290px;
+    }
+}
+
+
+@media only screen and (max-width: 560px) {
+    .rewards-content {
+        background-color: var(--light1);
+    }
+
+
+    .rewards-container {
+        width: 100%;
+        padding: 36px 16px;
+        align-items: center;
+		
+		
+		border-left: none;
+		border-right: none;
+    }
+
+
+    .rewards-container img {
+        width: 250px;
+    }
+}
+
+
+
