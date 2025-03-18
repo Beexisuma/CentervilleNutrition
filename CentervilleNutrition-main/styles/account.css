@@ -1,0 +1,416 @@
+.account-content {
+	display: flex;
+	width: 100%;
+	padding: 0 5%;
+	flex-direction: column;
+	align-items: center;
+	height: 100%;
+	background-color: var(--light3);
+	overflow-x: hidden;
+}
+
+.account-container {
+	width: 800px;
+    overflow-y: auto;
+	overflow-x: hidden;
+    padding: 42px 64px;
+    background-color: var(--light1);
+    height: 100vh;
+
+
+    display: flex;
+    flex-direction: column;
+	align-items: center;
+	
+	
+	border-left: 1px solid var(--dark1);
+	border-right: 1px solid var(--dark1);
+}
+
+.account-container h1 {
+	font-size: 3.4vw;
+	font-weight: bold;
+	margin-bottom: 64px;
+	text-align: left;
+	width: 100%;
+}
+
+
+.receipt-box {
+	width: 660px;
+	background-color: var(--light3);
+	border: 1px solid var(--dark1);
+	border-radius: 18px;
+	padding: 6px 0 30px 0;
+}
+
+.receipt-box h3 {
+	font-size: 24px;
+	font-weight: 200 !important;
+	margin: 0 10px;
+}
+
+.receipt-list {
+	max-width: 100%;
+	width: 100%;
+	background-color: var(--light1);
+	border-top: 1px solid var(--dark1);
+	border-bottom: 1px solid var(--dark1);
+	height: 400px;
+	max-height: 400px;
+	padding: 24px;
+	overflow-y: scroll;
+	overflow-x: hidden;
+	
+	display: flex;
+	flex-direction: column;
+	gap: 18px;
+	justify-content: flex-start;
+	align-items: center;
+}
+
+.transaction {
+    width: 600px;
+    border: 1px solid var(--dark1);
+    border-radius: 18px;
+    padding: 6px 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.transaction h4 {
+    font-weight: 200;
+    font-size: 18px;
+    text-align: left;
+    width: 50%;
+	white-space: nowrap;
+}
+
+.transaction h5 {
+    font-weight: 500;
+    font-size: 18px;
+    text-align: center; 
+    width: 15%;
+}
+
+.view-receipt {
+    color: var(--dark1);
+    font-weight: bold;
+    cursor: pointer;
+    width: 35%;
+    text-align: right;
+	background-color: transparent;
+	border: none;
+	text-decoration: underline;
+}
+
+.view-receipt input {
+  background-color: transparent;
+  border: none; 
+  font-weight: bold;
+  text-decoration: underline;
+  color: var(--dark1);
+  cursor: pointer;
+}
+
+.view-receipt:hover {
+	opacity: 0.8;
+}
+
+.empty-receipt {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	gap: 12px;
+}
+
+.empty-receipt h2 {
+	font-weight: 500;
+	font-size: 24px;
+}
+
+.empty-receipt a {
+	color: var(--yellow1);
+	font-weight: 200;
+	font-size: 24px;
+}
+
+.empty-receipt a:hover {
+	opacity: 0.6;
+}
+
+.account-btns {
+	display: flex;
+	width: 100%;
+	justify-content: space-around;
+	
+	align-items: center;
+	margin-top: 48px;
+}
+
+.btn-account {
+	width: 210px;
+	height: 70px;
+	font-size: 32px;
+	
+	border-radius: 48px;
+	cursor: pointer;
+	transition: background-color 0.2s, transform 0.1s;
+	border: none;
+	background-color: var(--dark1);
+	color: var(--light1);
+}
+
+.btn-account:hover {
+	color: var(--dark1);
+	background-color: transparent;
+	border: 4px solid var(--dark1);
+}
+
+.btn-account:active {
+	transform: scale(0.98);
+}
+
+.sign-out {
+	
+	background-color: var(--error);
+}
+
+.sign-out:hover {
+	border: 4px solid var(--error);
+	color: var(--error);
+}
+
+.edit-form {
+	box-shadow: 0px 5px 7px rgb(0 0 0 / 85%);
+	padding: 48px 64px !important;
+	margin-top: 0 !important;
+	border: none !important;
+}
+
+.edit-form .out {
+	margin-top: -38px !important;
+	margin-right: -76px !important;
+}
+
+.change-btn {
+	margin-bottom: 18px !important;
+}
+
+
+/*
+Reciept page
+*/
+
+
+
+
+@media only screen and (max-width: 800px) {
+	.account-container {
+		width: 100vw;
+		border: none;
+	}
+	
+	.account-container h1 {
+		font-size: 36px;
+	}
+	
+
+}
+
+@media only screen and (max-width: 675px) {
+	
+	.receipt-box {
+		width: 320px;
+	}
+	
+	.receipt-box h3 {
+		text-align: center;
+	}
+	
+	.transaction {
+		flex-direction: column;
+		width: 280px;
+		text-align: center;
+		justify-content: center;
+		gap: 4px;
+	}
+	
+	.transaction h4, .transaction h5, .view-receipt {
+		width: 100%;
+		text-align: center;
+	}
+	
+	.account-container h1 {
+		text-align: center;
+	}
+	
+	.edit-form {
+		padding: 48px !important;
+	}
+	
+	.account-btns {
+		flex-direction: column;
+		gap: 24px;
+	}
+	
+}
+
+
+
+
+/*
+Reciept page
+*/
+
+.official-box {
+	font-family: "Geologica", sans-serif;
+	width: 320px;
+	border: 1px solid var(--dark1);
+	padding: 10px;
+	margin: auto;
+	color: var(--dark1);
+}
+
+.official-box h2 {
+	text-align: center;
+	font-size: 24px;
+}
+
+.official-box h3 {
+	text-align: center;
+	font-size: 18px;
+	font-weight: 200;
+}
+
+.official-line {
+	margin: 6px 0;
+	border-bottom: 1px solid var(--dark1);
+	height: 1px;
+	width: 100%;
+}
+
+.official-box p {
+	line-height: 2;
+}
+
+.official-box strong {
+	font-weight: 500;
+	font-size: 18px;
+}
+
+.official-box li {
+	margin: 4px 0;
+}
+
+.official-box span {
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+}
+
+.official-custom {
+	list-style-type: none;
+	font-size: 12px;
+	padding-left: 6px;
+	opacity: 0.8;
+	margin-bottom: 8px;
+}
+
+.official-end {
+	text-align: center;
+}
+
+.official-back {
+	text-align: center;
+	color: var(--dark1);
+	font-family: "Geologica", sans-serif;
+	font-size: 18px;
+
+}
+
+.official-back:hover {
+	opacity: 0.8;
+}
+
+.official-list {
+	max-height: 400px;
+	overflow-y: auto;
+	overflow-x: hidden;
+	list-style-type: none;
+	padding-left: 0;
+}
+
+#cartNum {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 18px;
+	font-weight: 500;
+	font-family: "Geologica", sans-serif;
+	position: absolute;
+	height: 27px;
+	background-color: transparent;
+	z-index: 3;
+	color: var(--dark1);
+}
+
+#cartNum:hover + .icon-bag {
+	transform: scale(1.1);
+}
+
+.charlieDidThis {
+	border-radius: 10px;
+	border: none;
+	background-color: var(--light1);
+}
+
+.charlieDidThis:hover {
+	cursor: pointer;
+	background-color: var(--light2);
+	transform: scale(1.01);
+}
+
+.notice {
+	width: 550px;
+	padding: 20px 32px;
+	text-align: center;
+	background-color: var(--light1);
+	box-shadow: 0px 5px 7px rgb(0 0 0 / 85%);
+}
+
+.notice h1 {
+	text-transform: uppercase;
+	font-size: 36px;
+	font-weight: 500;
+	margin-bottom: 12px;
+	margin-top: 6px;
+}
+
+.notice h2 {
+	font-size: 24px;
+	font-weight: 200;
+	margin-bottom: 12px;
+}
+
+.notice p {
+	font-size: 18px;
+	font-weight: 200;
+	margin-bottom: 42px;
+}
+
+.notice strong {
+	font-weight: 500;
+}
+
+.table {
+	background-color: white;
+	height: 200px;
+	width: 800px;
+}
+
+

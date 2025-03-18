@@ -1,0 +1,571 @@
+:root {
+	--admin: #786d70;
+}
+
+.admin-content {
+	display: flex;
+}
+
+.admin-top {
+	background-color: var(--light1) !important;
+}
+
+.admin-nav a {
+	color: var(--dark1) !important;
+}
+
+.admin-logo h1 {
+	color: var(--dark1) !important;
+	text-shadow: 0px 3px 5px rgba(70, 52, 55, 0.15) !important;
+}
+
+.admin-content {
+	background-color: var(--admin) !important;
+}
+
+/*
+Admin Left Panel
+*/
+.admin-left {
+	width: fit-content;
+	padding: 24px 0;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-between;
+	height: 100%;
+	background-color: var(--dark1);
+}
+
+.admin-left section {
+	display: flex;
+	flex-direction: column;
+	gap: 24px;
+}
+
+.admin-right {
+	min-width: 181.3px;
+	height: 100%;
+	background-color: var(--dark1);
+}
+
+.nav-out {
+	display: none;
+}
+
+.admin-menu {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+	gap: 8px;
+}
+
+.admin-menu-nav {
+	font-size: 24px;
+	color: var(--light1);
+	font-weight: 200;
+	text-align: center;
+	border: none;
+	background-color: transparent;
+	cursor: pointer;
+	padding: 14px 50px;
+	width: 100%;
+	font-family: "Geologica", sans-serif;
+}
+
+.admin-menu-nav:hover {
+	background-color: var(--admin);
+	box-shadow: 4px 0px 4px rgba(70, 52, 55, 0.25);
+}
+
+.list-select {
+	color: var(--green2);
+}
+
+.admin-switch {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 4px;
+	padding: 8px 16px;
+	border-radius: 50px;
+
+	cursor: pointer;
+	transition: 0.2s;
+}
+
+.user-switch {
+	outline: 3px solid var(--yellow2);
+}
+
+.drink-switch {
+	outline: 3px solid var(--green2);
+}
+
+.history-switch {
+	outline: 3px solid var(--error);
+}
+
+.hours-switch {
+	outline: 3px solid purple;
+}
+
+.admin-switch svg {
+	width: 20px;
+	margin-top: 4px;
+}
+
+.history-switch svg {
+	margin-top: 0 !important;
+}
+
+.admin-switch h1 {
+	font-size: 24px;
+	font-weight: 500;
+	color: var(--light1);
+}
+
+.user-switch:hover {
+	background-color: transparent;
+	background-color: var(--yellow2);
+}
+
+.drink-switch:hover {
+	background-color: transparent;
+	background-color: var(--green2);
+}
+
+.history-switch:hover {
+	background-color: transparent;
+	background-color: var(--error);
+}
+
+.hours-switch:hover {
+	background-color: transparent;
+	background-color: purple;
+}
+
+.admin-switch:active {
+	transform: scale(0.98);
+}
+
+
+
+/*
+Admin Center Interface
+*/
+
+.admin-interface {
+	width: 100%;
+	max-height: 100%;
+	min-height: 100%;
+	overflow-y: auto;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.admin-interface h1 {
+	font-size: 64px;
+	font-weight: 500;
+	text-align: center;
+	padding: 24px 0;
+	color: var(--light1);
+}
+
+.admin-interface p {
+	font-size: 18px;
+	color: var(--light1);
+	font-weight: 200;
+}
+
+.search {
+	width: 450px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 6px;
+
+	background-color: var(--light1);
+	border-radius: 24px;
+	padding: 6px 8px;
+	margin-bottom: 32px;
+	border: 2px solid var(--dark1);
+}
+
+.search svg {
+	width: 20px;
+	height: 20px;
+	fill: var(--dark1);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.search input {
+	width: 100%;
+	background-color: var(--light1);
+	font-size: 18px;
+	border: none;
+	outline: none;
+	color: var(--dark1);
+	font-weight: 200;
+	font-family: "Geologica", sans-serif;
+}
+
+.search input::placeholder {
+	opacity: 0.7;
+	font-weight: 100;
+}
+
+.admin-list {
+	width: 99%;
+	padding: 32px 32px 0 32px;
+	max-height: calc(100% - 200px);
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+
+	gap: 18px;
+	border-top: 2px solid var(--dark1);
+	overflow-y: scroll;
+}
+
+.admin-item {
+	width: 590px;
+	padding: 8px 16px;
+
+	font-size: 24px;
+	color: var(--dark1);
+	background-color: var(--light1);
+	border-radius: 24px;
+	font-weight: 200;
+	text-align: left;
+
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.admin-item:last-child {
+	margin-bottom: 16px;
+}
+
+.admin-item p {
+	max-width: 400px;
+	color: var(--dark1);
+	font-size: 24px;
+}
+
+.list-actions {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+}
+
+.list-actions button {
+	padding: 4px;
+	border: none;
+	background-color: transparent;
+	border-radius: 24px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+}
+
+.list-actions button:hover {
+	outline: 2px solid var(--dark1);
+}
+
+.list-actions button:active {
+	transform: scale(0.98);
+}
+
+.list-actions svg {
+	width: 32px;
+	height: 32px;
+}
+
+.list-select {
+	color: var(--green2);
+}
+
+.list-select2 {
+	color: var(--yellow1);
+}
+
+.list-select3 {
+	color: var(--error);
+}
+
+.admin-relative {
+	position: fixed;
+	bottom: 18px;
+	right: calc(18px + 181.3px);
+}
+
+.admin-add {
+	border: none;
+	background-color: transparent;
+
+	display: flex;
+	flex-direction: center;
+	align-items: center;
+}
+
+.admin-add:first-child {
+	display: none;
+}
+
+.admin-add img {
+	width: 60px;
+	cursor: pointer;
+}
+
+.admin-add:hover {
+	opacity: 0.8;
+}
+
+/*
+---------------INSERT-POPUP---------------
+*/
+
+.insert-top {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	width: 800px;
+}
+
+.insert-top button {
+	border-radius: 16px 16px 0 0;
+	background-color: var(--dark1);
+	color: var(--light1);
+	width: 33.3%;
+	padding: 8px 0;
+	border: none;
+	font-size: 24px;
+	cursor: pointer;
+	font-family: "Geologica", sans-serif;
+	font-weight: 200;
+}
+
+.insert-top button:hover {
+	background-color: var(--admin);
+}
+
+.insert-top-select {
+	background-color: var(--light1) !important;
+	color: var(--dark1) !important;
+	cursor: default !important;
+}
+
+.insert-top-select:hover {
+	background-color: var(--light1) !important;
+}
+
+.insert-box {
+	background-color: var(--light1);
+	display: flex;
+	flex-direction: column;
+	width: 800px;
+	justify-content: center;
+	align-items: center;
+}
+
+.insert-box p {
+	color: var(--dark1) !important;
+}
+
+.insert-form {
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	margin-top: 24px;
+	color: var(--dark1);
+	max-width: 500px;
+	margin: 0 auto;
+}
+
+.insert-form p {
+	font-size: 24px;
+	margin-bottom: 6px;
+	font-weight: 200;
+}
+
+.insert-form section {
+	display: flex;
+	flex-direction: column;
+}
+
+.insert-form span {
+	display: flex;
+	gap: 18px;
+	align-items: center;
+	margin-bottom: 24px;
+}
+
+.insert-file {
+	font-size: 18px;
+	color: var(--dark1);
+}
+
+.insert-text {
+	font-size: 20px;
+	padding: 8px;
+	background-color: var(--light1);
+	color: var(--dark1);
+	border: 1px solid var(--dark1);
+	border-radius: 5px;
+	margin-bottom: 38px;
+	cursor: text;
+}
+
+.insert-text:focus {
+	outline: 1px solid var(--dark1);
+}
+
+.insert-submit {
+	font-size: 24px;
+	background-color: var(--dark1);
+	padding: 10px 5px;
+	width: 220px;
+	border-radius: 8px;
+	border: none;
+	color: var(--light1);
+	margin: 0 auto 8px auto;
+	cursor: pointer;
+	font-weight: 200;
+	font-family: "Geologica", sans-serif;
+}
+
+.insert-submit:hover {
+	opacity: 0.92;
+}
+
+.insert-stock {
+	font-size: 24px;
+	font-weight: 200;
+}
+
+.insert-stock input {
+	height: 20px;
+	width: 20px;
+}
+
+#insertCustom {
+	margin-top: 113px;
+}
+
+/*
+---------------CONFIRM-POPUP---------------
+*/
+
+@media only screen and (max-width: 900px) {
+	.insert-top {
+		width: 90%;
+	}
+
+	.insert-top button {
+		font-size: 18px;
+	}
+
+	.insert-form span {
+		gap: 12px;
+	}
+}
+
+/*
+---------------UI-CHANGE----------
+*/
+
+@media only screen and (max-width: 1200px) {
+	.admin-right {
+		display: none;
+	}
+
+	.admin-relative {
+		right: 12px;
+	}
+}
+
+@media only screen and (max-width: 900px) {
+	.admin-item {
+		width: 84%;
+	}
+
+	.search {
+		width: 350px;
+	}
+}
+
+
+
+@media only screen and (max-width: 650px) {
+	.admin-relative {
+		width: 100%;
+		left: 0;
+		padding: 0 6px;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		flex-direction: row;
+	}
+
+	.admin-add:first-child {
+		display: flex;
+	}
+
+	.admin-add img {
+		width: 40px;
+	}
+
+	.mobile-nav {
+		display: none;
+	}
+
+	.admin-left {
+		position: fixed;
+		left: 0;
+		bottom: 0;
+		height: calc(100% - 158.78px);
+		z-index: 3;
+		width: 100%;
+		padding: 8px 0;
+		justify-content: flex-start;
+	}
+
+	.admin-menu-nav {
+		padding: 14px 0;
+		width: 100vw;
+	}
+
+	.nav-out {
+		position: relative;
+		top: 0;
+		display: inline;
+		padding-top: 10px;
+		margin-right: 36px;
+		color: var(--light1) !important;
+	}
+
+	.admin-left section {
+		position: fixed;
+		bottom: 24px;
+	}
+
+	.admin-item p {
+		font-size: 18px !important;
+	}
+}
+
+
+.search-btn {
+  background-color: transparent;
+  border: none;
+}
+
+
+
