@@ -1,0 +1,216 @@
+.sign-in {
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	font-family: "Geologica", sans-serif;
+	color: var(--dark1);
+}
+
+.sign-form {
+	padding: 32px;
+	background-color: var(--light3);
+	border-radius: 30px;
+	border: 1px solid var(--dark1);
+	display: flex;
+	flex-direction: column;
+	z-index: 4;
+}
+
+.sign-form h1 {
+	font-size: 36px;
+	text-align: center;
+	margin-bottom: 32px;
+	font-weight: 500;
+}
+
+.sign-form p {
+	font-size: 20px;
+	margin-bottom: 6px;
+	font-weight: 200;
+}
+
+/*.sign-form section {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	column-gap: 32px;
+	row-gap: 18px;
+	width: 100%;
+}*/
+
+.reg-text {
+	font-size: 20px;
+	width: 300px;
+	padding: 8px;
+	background-color: var(--light1);
+	color: var(--dark1);
+	border: none;
+	border-radius: 5px;
+	margin-bottom: 38px;
+}
+
+.reg-text2 {
+	margin-bottom: 24px !important;
+}
+
+.reg-text2:disabled {
+	opacity: 0.6;
+	cursor: not-allowed;
+}
+
+.reg-text:focus {
+	outline: 1px solid var(--dark1);
+}
+
+.regPass-title {
+	font-size: 18px !important;
+	font-weight: 500;
+	margin-bottom: 12px;
+}
+
+.regPass {
+	display: flex;
+	gap: 18px;
+	justify-content: center;
+	align-items: flex-start;
+}
+
+.regPass ul {
+	margin-bottom: 12px;
+	margin-left: -18px;
+}
+
+.regPass li {
+	margin-bottom: 2px;
+}
+
+.reg-next {
+	display: block;
+	font-size: 18px;
+	color: var(--dark1);
+	background-color: transparent;
+	border: none;
+	text-decoration: underline;
+	cursor: pointer;
+	text-align:center;
+	margin: 0 auto;
+}
+
+.reg-next:hover {
+	opacity: 0.8;
+}
+
+.reg-submit {
+	font-size: 18px;
+	background-color: var(--dark1);
+	padding: 10px 0;
+	border-radius: 8px;
+	border: none;
+	color: var(--light1);
+	width: 160px;
+	margin: 12px auto 8px auto;
+	cursor: pointer;
+	font-weight: 200;
+	font-family: "Geologica", sans-serif;
+	display: block;
+}
+
+.reg-submit:hover {
+	opacity: 0.92;
+}
+
+.reg-submit:active {
+	transform: scale(0.99);
+}
+
+.reg-submit:disabled {
+	opacity: 0.3;
+	color: var(--light3);
+}
+
+.register-link-text {
+	font-size: 14px;
+	padding-top: 18px;
+	font-weight: 500;
+	width: 100%;
+	text-align: center;
+}
+
+.reg-error {
+	color: var(--error) !important;
+	list-style-type: circle;
+}
+
+.create-account-link, .sign-up-link {
+	margin: 4px 0 4vh 0;
+	font-size: 24px;
+	font-weight: 200;
+	text-decoration: underline;
+	background-color: transparent;
+	border: none;
+	cursor: pointer;
+	width: 100%;
+	text-align: center;
+}
+
+.create-account-link {
+	color: var(--green1);
+}
+
+.sign-up-link {
+	color: var(--yellow1);
+}
+
+.create-account-link:hover, .sign-up-link:hover {
+	opacity: 0.7;
+}
+
+@media only screen and (max-height: 540px) {
+	.sign-in {
+		justify-content: flex-start;
+	}
+	
+	.sign-form {
+		margin-top: 12px;
+	}
+	
+	.alt-logo {
+		position: relative;
+		margin-left: -24px;
+		margin-top: 24px;
+	}
+}
+
+
+@media only screen and (max-width: 500px) {
+	.sign-in {
+		background-color: var(--light3);
+		justify-content: flex-start;
+	}
+
+	.sign-form {
+		border: none;
+	}
+	
+	.sign-form section{
+		display: flex;
+		flex-direction: column;
+		row-gap: 0;
+	}
+	
+	.alt-logo {
+		position: relative;
+		margin-left: -24px;
+		margin-top: 24px;
+	}
+	
+	.regPass {
+		flex-direction: column;
+		align-items: center;
+	}
+	
+	.register-link-text {
+		border-top: 1px solid var(--lightA);
+	}
+	
+	
+}
