@@ -138,7 +138,7 @@ if (isset($_POST['addCustomizations'])) {
                 else {
                     echo ('<input type="submit" disabled name="addCart" value="Add to Cart" />');
                     echo ('<button type="button" onclick="addPop()" disabled class="customize-btn">Customize</button>
-                           </form><p class="itemMsg"><a href="login.php">Sign in</a> to add items to your cart</p>'); 
+                           </form><p class="itemMsg"><a href="../account/login.php">Sign in</a> to add items to your cart</p>'); 
                 }
 
                 if(isset($_POST['addCart'])) {

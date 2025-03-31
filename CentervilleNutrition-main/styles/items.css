@@ -161,7 +161,7 @@
 	font-weight: 200;
 	text-align: center;
 	opacity: 0.8;
-	margin-top: -42px;
+	margin-top: 12px;
 }
 
 .itemMsg a {
@@ -188,7 +188,7 @@
 
 .item-main-img {
     width: 33vw;
-	height: 33vw;
+	min-height: 33vw;
 }
 
 }
@@ -220,6 +220,7 @@
 	
 	.item-main-img {
 		width: 36vw;
+		min-height: 36vw;
 	}
 	
 	.item-form {

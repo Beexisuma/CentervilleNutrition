@@ -261,8 +261,6 @@ Reciept page
 }
 
 
-
-
 /*
 Reciept page
 */
@@ -274,6 +272,7 @@ Reciept page
 	padding: 10px;
 	margin: auto;
 	color: var(--dark1);
+	background-color: var(--light1);
 }
 
 .official-box h2 {

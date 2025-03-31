@@ -266,7 +266,7 @@ if (isset($_POST['submit'])) {
             
             // Check if the punchcard insertion was successful
             if ($punchcard_res) {
-                $_SESSION['regSuccess'] = "<div class='success'>User Added Successfully!</div>";
+                $_SESSION['regSuccess'] = "<div class='success'>Account Created Successfully!</div>";
                 
                 // If the user is eligible for a free drink, update the punchcard
                 if ($_SESSION['freeDrink'] == 'true') {

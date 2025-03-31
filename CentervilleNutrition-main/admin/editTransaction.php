@@ -152,65 +152,49 @@ if (!isset($_SESSION['firstName'])) {
     <input type="search" name="search" placeholder="Search Items" />
     </form>
 <?php
+if (!isset($_SESSION['firstName'])) {
+    header('location: ../homepage/index.php');
+    $_SESSION['mustLogin'] = "<h3 class='error'>You must log in to access this page.</h3>";
+} else if ($_SESSION['admin'] != 1) {
+    header('location: ../homepage/index.php');
+    $_SESSION['mustLogin'] = "<h3 class='error'>You must be an admin to access this page.</h3>"; 
+}
 
-$receiptQuery = mysqli_query($con, "SELECT Email, PurchasedCart, Cost, Date, Free FROM receipts");
+$receiptQuery = mysqli_query($con, "SELECT Email, PurchasedCart, Cost, Date, ReceiptID FROM receipts ORDER BY Date desc");
 $num_rows = mysqli_num_rows($receiptQuery);
 
-// Display the menu items in a table if available
 if ($num_rows > 0) {
     echo "<table border='1' class='table'>
     <tr>
         <th>Date</th>
         <th>Email</th>
-        <th>Purchased Items</th>
-        <th>Cost</th>
+		<th>Total</th>
+		<th>View</th>
     </tr>";
     
-    // Loop through each menu item and display it in a table row
     while ($row = $receiptQuery->fetch_assoc()) {
-        if($row['Free'] == "Yes") {
-            $yes = "Free Drink -$10.99";
-        }
-        else {
-            $yes = "";
-        }
-        // Check the in-stock status (1 = Yes, 0 = No)
-        $cartArray = $dataClass->cartToArray($row["PurchasedCart"]);
-        $cartDisplay = "";
-        foreach($cartArray as $item)
-        {
-            $drink = $dataClass->searchData('menu','ItemID',$item[0])['Name'];
-            if(count($item) > 1)
-            {
-                $drink = $drink . "<select>";
-                $drink = $drink . "<option style='display: none;'>Customizations</option>";
-                for($i=1; $i < count($item); $i++ )
-                {
-                    $drink = $drink . "<option disabled='true'>" . $dataClass->searchData('customization','CustomizationID',$item[$i])['Name'] . "</option>";
-                }
-                
-
-                $drink = $drink . "</select>";
-            }
-            
-           
-            
-
-            $cartDisplay = $cartDisplay . $drink . "<br>";
-        }
-
+     
         echo "<tr>
             <td>" . htmlspecialchars($row['Date']) . "</td>
             <td>" . htmlspecialchars($row["Email"]) . "</td>
-            <td>" . $cartDisplay . $yes . "</td>
-            <td>$" . htmlspecialchars($row["Cost"]) . "</td>
+            <td>$" . htmlspecialchars($row['Cost']) . "</td>
+			<td>
+                <form method='POST' class='list-actions'>
+                    <input type='hidden' name='receiptID' value='" . htmlspecialchars($row['ReceiptID']) . "'>
+                    <input type='submit' name='view' value='View Receipt'></input>
+                </form>
+            </td>
           </tr>";
     }
     echo "</table>";
+
+	if(isset($_POST['view'])) {
+		$_SESSION['receiptID'] = $_POST['receiptID'];
+		header('location: viewReceipt.php');
+	}
 } else {
     echo "<p>No receipts available.</p>";
 }
-
 ?>
 
 <div class="admin-relative">

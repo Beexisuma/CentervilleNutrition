@@ -576,3 +576,12 @@ Admin Center Interface
 .outform {
 	width: 100%;
 }
+
+.admin-receipt {
+	background-color: var(--admin);
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}

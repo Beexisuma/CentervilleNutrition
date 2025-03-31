@@ -139,6 +139,13 @@
 	transition: 0.2s;
 }
 
+@media only screen and (max-width: 800px) {
+	.goTea, .goShake {
+		font-size: 18px;
+		padding: 10px 16px;
+	}
+}
+
 .goTea {
 	border: 0.3vw solid var(--yellow1);
 	background-color: var(--yellow1);
