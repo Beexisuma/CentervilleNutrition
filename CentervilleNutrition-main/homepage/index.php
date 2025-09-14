@@ -1,18 +1,33 @@
 <?php include('../header/header.php');
 
+
 if (isset($_SESSION['loginSuccess'])) {
-    // echo "<script>alert('Login Successful!');</script>";
-    unset($_SESSION['loginSuccess']);
+    echo("<script>
+            setTimeout(function() {
+                alert('Login Successful!');
+            }, 100); 
+          </script>");
+          unset($_SESSION['loginSuccess']);
 }
+
 
 if (isset($_SESSION['mustLogin'])) {
-    echo $_SESSION['mustLogin'];
-    unset($_SESSION['mustLogin']);
+    echo("<script>
+            setTimeout(function() {
+                alert('You must log in to access this content.');
+            }, 100); 
+          </script>");
+          unset($_SESSION['mustLogin']);
 }
 
+
 if (isset($_SESSION['paymentSuccess'])) {
-    echo $_SESSION['paymentSuccess'];
-    unset($_SESSION['paymentSuccess']);
+    echo("<script>
+            setTimeout(function() {
+                alert('Payment Successful!');
+            }, 100); 
+          </script>");
+          unset($_SESSION['paymentSuccess']);
 }
 ?>
 
@@ -222,6 +237,7 @@ if (isset($_SESSION['paymentSuccess'])) {
                         </div>
 
 
+                        <a class="home-address home-tel" href="tel:555-555-5555"><?=$phoneIcon?><h2>(937) 613-0742</h2></a>
                         <a
                             class="home-address"
                             href="https://www.google.com/maps/place/HerbaLife+-+Centerville+Nutrition/@39.6290595,-84.1458033,17z/data=!3m1!4b1!4m6!3m5!1s0x88408f8ef8c797cd:0x4759f44f4699af9a!8m2!3d39.6290595!4d-84.1432284!16s%2Fg%2F11rwx2892d?entry=ttu&g_ep=EgoyMDI0MTExMC4wIKXMDSoASAFQAw%3D%3D"
@@ -237,6 +253,7 @@ if (isset($_SESSION['paymentSuccess'])) {
                             <h2>869 E Franklin St, Centerville, Ohio</h2>
                             <!-- <iframe src="https://www.google.com/maps/embed?pb=!4v1740165843497!6m8!1m7!1sCAoSLEFGMVFpcE90X0dxNXhXdklmLTlTMDZ0TnpsX3RRb2tBaHlZYTMyd3ZnS3RU!2m2!1d51.38838777077809!2d30.09859354513141!3f103.60376686951322!4f14.525441543907405!5f0.7820865974627469" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> -->
                         </a>
+                        
                     </section>
                 </section>
             </div>

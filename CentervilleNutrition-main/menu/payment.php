@@ -206,10 +206,10 @@ if (isset($_SESSION['firstName'])) {
 						<div class="other-btn"><img src="../images/venmo.png"></div>
 					</div>
 					<section class="pay-inputs">
-						<p>Card Number:</p><input type="text" name="cardNum" maxlength="19" oninput="formatCreditCard(event)"  placeholder="1111-2222-3333-4444">
+						<p>Card Number:</p><input type="text" name="cardNum" maxlength="19" oninput="formatCreditCard(event)"  placeholder="1111-2222-3333-4444" required>
 						<p>Expiration Date:</p>
 					<span>
-					<select>  
+					<select required>  
 						<option>January</option>
 						<option>February</option>
 						<option>March</option>
@@ -228,16 +228,16 @@ if (isset($_SESSION['firstName'])) {
                         $year = date("Y"); 
                         $max = $year + 100;
 
-                        echo "<select>";
+                        echo "<select required>";
                         for($i = $year; $i <= $max; $i++) {
                         echo "<option>" . $i . "</option>";
                         }
                         echo "</select>";
                         ?>
 					</span>
-						<p>CVV:</p><input maxlength="4" type="text" oninput="formatCVV(event)" name="cardNum" placeholder="123">
-						<p>Name on Card:</p><input type="text" name="cardNum" placeholder="John Doe">
-						<p>Zip Code:</p><input type="text" name="cardNum" placeholder="10001">
+						<p>CVV:</p><input maxlength="4" type="text" oninput="formatCVV(event)" name="cardNum" placeholder="123" required>
+						<p>Name on Card:</p><input type="text" name="cardNum" placeholder="John Doe" required>
+						<p>Zip Code:</p><input type="text" name="cardNum" placeholder="10001" required>
 					</section>
 					<input type="submit" class="submit-pay" value="Submit" name='pay'/>
 				</form>

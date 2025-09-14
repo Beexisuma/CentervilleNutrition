@@ -192,10 +192,13 @@ if (isset($_POST['addCustomizations'])) {
 </div>
 
 <script>
+
+    //Close customization popup
     function closePop() {
         document.querySelector(".popup").classList.add("POP");
     }
 
+    //Open customization popup
     function addPop() {
         document.querySelector(".popup").classList.remove("POP");
     }

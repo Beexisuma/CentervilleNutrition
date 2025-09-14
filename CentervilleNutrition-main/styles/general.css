@@ -4,6 +4,15 @@
 }
 
 
+@font-face {
+	font-family: "Playball";
+	src: url("Playball/Playball-Regular.ttf");
+}
+
+@font-face {
+	font-family: "Geologica";
+	src: url("Geologica/Geologica.ttf");
+}
 :root {
     --light1: #fff9fb;
     --light2: #f3eef0;
@@ -206,6 +215,7 @@
 	z-index: 3;
 	color: var(--dark1);
 	left: calc(100vw - 89px);
+	padding-top: 1px;
 }
 
 #cartNum:hover + .icon-bag {

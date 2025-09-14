@@ -516,6 +516,10 @@ Admin Center Interface
 		align-items: center;
 		flex-direction: row;
 	}
+	
+	.insert-box {
+		width: 100%;
+	}
 
 	.admin-add:first-child {
 		display: flex;

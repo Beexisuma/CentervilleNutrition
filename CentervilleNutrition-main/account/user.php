@@ -15,7 +15,7 @@ if (isset($_SESSION['firstName'])) {
             <div class="receipt-list">
                 <?php
                 $email = $_SESSION['email'];
-                $receiptQuery = mysqli_query($con, "SELECT Email, PurchasedCart, Cost, Date FROM receipts WHERE email='$email' ORDER BY Date Desc");
+                $receiptQuery = mysqli_query($con, "SELECT Email, PurchasedCart, Cost, Date, ReceiptID FROM receipts WHERE email='$email' ORDER BY ReceiptID Desc");
                 $num_rows = mysqli_num_rows($receiptQuery);
 
                 if ($num_rows > 0) {
@@ -36,7 +36,7 @@ if (isset($_SESSION['firstName'])) {
                 } else {
                     echo "<div class='empty-receipt'>
                             <h2>You have no purchases on this account</h2>
-                            <a href='menu.php'>Get Started</a>
+                            <a href='../menu/menu.php'>Get Started</a>
                           </div>";
                 }
 

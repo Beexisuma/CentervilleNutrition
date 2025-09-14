@@ -23,7 +23,7 @@ if (isset($_SESSION['firstName'])) {
             $_SESSION['unredeemed'] = $unredeemed;
         }
     }
-
+    
     // Display the user's punch card information
     $firstName = $_SESSION['firstName'];
 
@@ -68,10 +68,15 @@ if (isset($_SESSION['firstName'])) {
         echo "<h4 style='margin-top: 64px'>";
         echo "<h4>You have <span>" . $unredeemed . "</span> free drink available</h4>";
         echo "</h4>";}
-        echo "<form method='POST'>";
-        echo "<input style='none;' type='submit' name='takeMe' value='Redeem Now!'>";
-        echo "</form>";    
+        if($unredeemed != 0)
+        {
+            echo "<form method='POST'>";
+            echo "<input style='none;' type='submit' name='takeMe' value='Redeem Now!'>";
+            echo "</form>";  
+        }
         echo "<p><span>*Earn a punch</span> for every item you purchase on your account.</p>";
+
+
     echo "</div>";
     echo "</div>";
 

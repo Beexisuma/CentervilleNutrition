@@ -20,13 +20,17 @@ if (!isset($_SESSION['type'])) {
 
 if (isset($_SESSION['quantity']) && $_SESSION['quantity'] > 1) {
 if(isset($_SESSION['success']) && $_SESSION['success'] == 'yesCustom'){
-    echo "<div class='success'>" . $_SESSION['quantity'] . "x " . "Customized " . $_SESSION['itemName'] . " added successfully.</div>";
+
+
+
+
+    echo "<script>setTimeout(function() {alert('" .  $_SESSION['quantity'] . "x " . "Customized " . $_SESSION['itemName'] . " added successfully.');}, 100);</script>";
     unset($_SESSION['success']);
     unset($_SESSION['quantity']);
 }
 
 if(isset($_SESSION['success']) && $_SESSION['success'] == 'yes'){
-    echo "<div class='success'>" . $_SESSION['quantity'] . "x "  . $_SESSION['itemName'] . " added successfully.</div>";
+    echo "<script>setTimeout(function() {alert('" .  $_SESSION['quantity'] . "x " . $_SESSION['itemName'] . " added successfully.');}, 100);</script>";
     unset($_SESSION['success']);
     unset($_SESSION['quantity']);
 }
@@ -34,12 +38,12 @@ if(isset($_SESSION['success']) && $_SESSION['success'] == 'yes'){
 
 else {
     if(isset($_SESSION['success']) && $_SESSION['success'] == 'yesCustom'){
-        echo "<div class='success'>Customized " . $_SESSION['itemName'] . " added successfully.</div>";
+        echo "<script>alert('Customized " . $_SESSION['itemName'] . " added successfully.')</script>";
         unset($_SESSION['success']);
     }
     
     if(isset($_SESSION['success']) && $_SESSION['success'] == 'yes'){
-        echo "<div class='success'>" . $_SESSION['itemName'] . " added successfully.</div>";
+        echo "<script>alert('" . $_SESSION['itemName'] . " added successfully.')</script>";
         unset($_SESSION['success']);
     }
 }

@@ -1,13 +1,10 @@
-
-/* General styling for the menu container */
 .items {
     display: grid;
 	grid-template-columns: 1fr 1fr 1fr;
-    gap: 20px; /* Space between the grid items */
+    gap: 20px; 
     padding: 20px;
   }
   
-  /* General styling for the menu items */
   .menu-item {
     border: 1px solid #ddd;
     border-radius: 8px;
@@ -22,7 +19,7 @@
     transform: translateY(-5px);
   }
   
-  /* Styling for the item name */
+
   .item-name {
     font-size: 1.5em;
     font-weight: bold;
@@ -30,7 +27,6 @@
     color: #333;
   }
   
-  /* Styling for the item description */
   .item-description {
     font-size: 1em;
     color: #666;
@@ -38,7 +34,6 @@
     margin-bottom: 10px;
   }
   
-  /* Styling for the item price */
   .item-price {
     font-size: 1.2em;
     font-weight: bold;
@@ -46,7 +41,6 @@
     margin-top: 10px;
   }
   
-  /* Styling for the Add to Cart button */
   .add-to-cart-btn {
     background-color: #3498db;
     color: white;
@@ -79,32 +73,32 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    gap: 20px; /* Adjusted for better spacing */
+    gap: 20px; 
     padding: 10px;
-    width: 22vw; /* Adjust as needed */
-    text-align: center; /* Centers the text and content */
+    width: 22vw; 
+    text-align: center; 
   }
   
   .collection-img {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 16vw; /* Adjust size */
-    height: 16vw; /* Adjust size to maintain square dimensions */
-    border-radius: 50%; /* Circular shape */
-    overflow: hidden; /* Ensures the image stays within the circle */
+    width: 16vw; 
+    height: 16vw; 
+    border-radius: 50%; 
+    overflow: hidden; 
     border: 2px solid var(--dark1);
     transition: transform 0.2s ease-in-out;
   }
   
   .collection-img img {
-    width: 100%; /* Scale image to fit */
-    height: 100%; /* Scale image to fit */
-    object-fit: cover; /* Ensures proper aspect ratio within the circular container */
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; 
   }
   
   .collection-title {
-    font-size: 1.5rem; /* Adjust as needed */
+    font-size: 1.5rem;
     width: 100%;
   }
   
@@ -112,14 +106,14 @@
     padding: 10px 20px;
     font-size: 1rem;
     cursor: pointer;
-    background-color: #555; /* Adjust to match your theme */
+    background-color: #555; 
     color: white;
     border: none;
     border-radius: 5px;
   }
   
   .collection-img:hover {
-    transform: scale(1.05); /* Slight zoom effect on hover */
+    transform: scale(1.05); 
   }
   
   
@@ -130,19 +124,19 @@
   
   .home-bottom .charlie {
     display: flex;
-    align-items: center; /* Vertically aligns items */
-    justify-content: space-between; /* Adds space between text and image */
-    gap: 20px; /* Adds spacing between text and image */
+    align-items: center; 
+    justify-content: space-between; 
+    gap: 20px; 
   }
   
   .text-content {
-    flex: 1; /* Ensures the text occupies some space */
+    flex: 1; 
   }
   
   .image-content img {
     max-width: 100%;
     height: auto;
-    max-height: 300px; /* Optional: limits the image height */
+    max-height: 300px; 
   }
   
 

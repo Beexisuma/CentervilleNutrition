@@ -352,6 +352,11 @@ if (isset($_POST['submitAdd'])) {
 
 
 </div>
+<div class="admin-relative">
+                    <button class="admin-add" onclick="addNav()">
+						<img src="../images/menu.png" />
+                    </button>
+</div>
 <div class="admin-right"></div>		
 
     <!--

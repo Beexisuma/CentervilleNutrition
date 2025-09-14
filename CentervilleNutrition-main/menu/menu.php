@@ -42,12 +42,14 @@ $isOpen = $_SESSION['isOpen'];
 </div>
 
 <script>
+    //Get menuIcons
     let teaHover = document.getElementById("teaBlob");
     let shakeHover = document.getElementById("shakeBlob");
-
     let teaBtn = document.getElementById("menuBtn1");
     let shakeBtn = document.getElementById("menuBtn2");
 
+
+    //Check for when icons are hovered over
     teaBtn.addEventListener('mouseenter', () => {
         teaHover.classList.add('menu-hover');
     });

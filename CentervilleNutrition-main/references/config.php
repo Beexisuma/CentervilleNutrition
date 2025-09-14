@@ -16,13 +16,18 @@
         exit(); 
     }
 
+
+    
+    // if last activity was more than 30 minutes ago, end session
+    if (isset($_SESSION['active']) && (time() - $_SESSION['active'] > 1800)) {
+        session_unset();     // unset session
+        session_destroy();   // destroy session 
+    }
+    
+    $_SESSION['active'] = time(); // update as long as user is active
+
+    ini_set('display_errors', 0);  
+    
+
 ?>
 
-<!-- comment of pain and agony -->
- 
-<!-- Dear programmer, when I wrote this code, only God and I knew how it worked. Now, only God knows it!
- 
-Please increase this counter as a warning for the next person. 
-totalHoursWastedHere: 129.25
-
--->

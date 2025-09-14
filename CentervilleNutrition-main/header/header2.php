@@ -8,14 +8,14 @@ include('../references/icons.php');
 
 // Check if user is logged in
 if(!isset($_SESSION['firstName'])) {
-	header("location: login.php");
+	header("location: ../account/login.php");
 	$_SESSION['error'] = "<div class='error'>You must be logged in to acccess this page.</div>";
 
 }
 
 // Check if logged in user is an admin
 if(!isset($_SESSION['admin']) || $_SESSION['admin'] != 1) {
-	header("location: login.php");
+	header("location: ../account/login.php");
 	$_SESSION['error'] = "<div class='error'>You must be an admin to acccess this page.</div>";
 }
 

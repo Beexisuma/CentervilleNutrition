@@ -57,15 +57,15 @@ if (isset($_SESSION['cartChecked']) && $_SESSION['cartChecked'] == 'yes') {
             $itemAsArray = $dataClass->cartToArray($itemAsString)[0];
             $count = 0;
             
-            $cart = $_SESSION['itemArray'];
+            $cart = array();
 
             foreach($_SESSION['itemArray'] as $cartItem)
             {
-                if($cartItem == $itemAsArray)
+                if($cartItem != $itemAsArray)
                 {
-                    unset($cart[$count]);
+                    array_push($cart, $cartItem);
                 }
-                $count++;
+
             }
 
             $_SESSION['itemArray'] = $cart; // recreate the array with new values
@@ -222,7 +222,10 @@ if (isset($_SESSION['cartChecked']) && $_SESSION['cartChecked'] == 'yes') {
     } else {
    
         if (!isset($_SESSION['buySomething'])) {
-            $_SESSION['buySomething'] = "<div class='error'>There are no items in the cart.</div>";
+            $_SESSION['buySomething'] ="<div class='empty-cart'>
+                            <h2>You have no items in your cart</h2>
+                            <a href='../menu/menu.php'>Take a look</a>
+                          </div>";
         }
         echo $_SESSION['buySomething'];
         unset($_SESSION['buySomething']); 

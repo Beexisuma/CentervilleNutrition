@@ -149,7 +149,7 @@ if (!isset($_SESSION['firstName'])) {
     </button>
 
     <!-- Search Input -->
-    <input type="search" name="search" placeholder="Search Items" />
+    <input type="search" name="search" placeholder="Search Users" />
     </form>
 <?php
 if (!isset($_SESSION['firstName'])) {
@@ -160,9 +160,25 @@ if (!isset($_SESSION['firstName'])) {
     $_SESSION['mustLogin'] = "<h3 class='error'>You must be an admin to access this page.</h3>"; 
 }
 
-$receiptQuery = mysqli_query($con, "SELECT Email, PurchasedCart, Cost, Date, ReceiptID FROM receipts ORDER BY Date desc");
-$num_rows = mysqli_num_rows($receiptQuery);
+if(isset($_POST['search-submit'])) {
+	$search_query = mysqli_real_escape_string($con, $_POST['search']);
+    if($_POST['search'] != "") {
+    echo("<h3 style='color: #7ad1a5;'>Showing Results for: " . $_POST['search'] . "</h3>");
+    echo("<form method='POST' style='margin-bottom: 10px;'><input class='charlieDidThis' type='submit' name='reload' value='Clear Search Results'></form>");
+    }
 
+	if(isset($_POST['reload'])) {
+        header('location: editTransaction.php');
+    }
+
+	$receiptQuery = mysqli_query($con, "SELECT Email, PurchasedCart, Cost, Date, ReceiptID FROM receipts WHERE Email LIKE '%$search_query%' ORDER BY ReceiptID desc");
+	$num_rows = mysqli_num_rows($receiptQuery);
+}
+
+else {
+$receiptQuery = mysqli_query($con, "SELECT Email, PurchasedCart, Cost, Date, ReceiptID FROM receipts ORDER BY ReceiptID desc");
+$num_rows = mysqli_num_rows($receiptQuery);
+}
 if ($num_rows > 0) {
     echo "<table border='1' class='table'>
     <tr>
@@ -206,6 +222,7 @@ if ($num_rows > 0) {
     <div class="admin-right"></div>		
 </div>
 <script>
+	//Toggle admin navigation for mobile view
 	function addNav() {
 		document.getElementById("adminNav").classList.toggle("mobile-nav");
 		//console.log("Nav toggled");

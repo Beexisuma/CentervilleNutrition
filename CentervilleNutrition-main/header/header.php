@@ -91,7 +91,11 @@ include('../references/icons.php');
 					$cartDisplay = "0";
 				}
 
+				if ($cartDisplay > 0) {
 				echo '<a href="../menu/cart.php" id="cartNum">' . $cartDisplay. '</a>' . $cartIcon . '</a>';
+				} else {
+					echo '<a href="../menu/cart.php" id="cartNum"></a>' . $cartIcon . '</a>';
+				}
 			}
 			?>
 	</nav>

@@ -22,18 +22,24 @@ if ($num_rows > 0) {
             <h3>Purchased Items:</h3>
             <ul class='official-list'>";
 
-            
+    $deletedProduct = false;        
     // Loop through each purchased item and display it
     foreach ($cartArray as $item) {
-        $existCheck = $dataClass->searchData("menu", "itemID", $item[0]);
+        $existCheckItem = $dataClass->searchData("menu", "itemID", $item[0]);
 
-        if($existCheck != null){
+        if($existCheckItem){
             $price = 0;
 
-            if (count($item) > 1) {
-                for ($i = 1; $i < count($item); $i++) {
-                    $customization = $dataClass->searchData('customization', 'CustomizationID', $item[$i])['Price'];
-                    $price += $customization;
+            if(count($item) > 1)
+            {
+                for($i = 1; $i < count($item); $i++)
+                {
+                    $existCheckCustom = $dataClass->searchData("customization", "CustomizationID", $item[$i]);
+                    if($existCheckCustom)
+                    {
+                        $customizationPrice = $dataClass->searchData('customization', 'CustomizationID', $item[$i])['Price'];
+                        $price += $customizationPrice;
+                    }
                 }
             }
 
@@ -47,8 +53,20 @@ if ($num_rows > 0) {
             if (count($item) > 1) {
                 echo "<ul class='official-custom'>";
                 for ($i = 1; $i < count($item); $i++) {
-                    $customization = $dataClass->searchData('customization', 'CustomizationID', $item[$i])['Name'];
-                    echo " [". htmlspecialchars($customization) . "] ";
+                    $existCheckCustom = $dataClass->searchData("customization", "CustomizationID", $item[$i]);
+
+                    if($existCheckCustom)
+                    {
+                        $customization = $dataClass->searchData('customization', 'CustomizationID', $item[$i])['Name'];
+                        echo " [". htmlspecialchars($customization) . "] ";
+                        
+                    }
+                    else
+                    {
+                        echo " [Removed Customization] ";
+                        $deletedProduct = true;
+                    }
+                    
                 }
                 
                 echo "</ul>";
@@ -59,6 +77,7 @@ if ($num_rows > 0) {
         else
         {
             echo "<li><span><strong>Removed Drink</strong></span></li>";
+            $deletedProduct = true;
         }
     }
 
@@ -71,12 +90,20 @@ if ($num_rows > 0) {
         echo "<h3>Discounts:</h3><li><span><strong>Free Drink</strong>-$" . number_format($row['Free'],2) . "</span></li>";
     }
 
+    $adjustMessage = "";
+
+    if($deletedProduct)
+    {
+        $adjustMessage = "<p>(Adjusted for removed product)</p>";
+    }
+
     // Output total cost
     echo "</ul>
           <div class='official-line'></div>
           <p><strong>Subtotal</strong>: $" . number_format($subtotal, 2) . "</p>
           <p><strong>Tax:</strong> $" . number_format($tax, 2) . "</p>
           <p><strong>Total Cost:</strong> $" . number_format($total, 2) . "</p>
+          " . $adjustMessage . "
           <div class='official-line'></div>
           <p class='official-end'>Thank you for your purchase!</p>
         </div>

@@ -7,19 +7,33 @@ if (isset($_SESSION['firstName'])) {
     header("location: user.php");
 }
 
-if(isset($_SESSION['regSuccess'])) {
-    echo($_SESSION['regSuccess']);
-    unset($_SESSION['regSuccess']);
+
+if (isset($_SESSION['regSuccess'])) {
+    echo("<script>
+            setTimeout(function() {
+                alert('You have been registered successfully!');
+            }, 100); 
+          </script>");
+          unset($_SESSION['regSuccess']);
 }
 
-if(isset($_SESSION['loginSuccess'])) {
-    echo($_SESSION['loginSuccess']);
-    unset($_SESSION['loginSuccess']);
+if (isset($_SESSION['error'])) {
+    echo("<script>
+            setTimeout(function() {
+                alert('Please log in to access this page.');
+            }, 100); 
+          </script>");
+          unset($_SESSION['error']);
 }
 
-if(isset($_SESSION['error'])){
-    echo($_SESSION['error']);
-    unset($_SESSION['error']);
+
+if (isset($_SESSION['incorrect'])) {
+    echo("<script>
+            setTimeout(function() {
+                alert('Failed to log in, email or password incorrect.');
+            }, 100); 
+          </script>");
+          unset($_SESSION['incorrect']);
 }
 
 ?>
@@ -142,6 +156,7 @@ if(isset($_SESSION['error'])){
 let sign = document.getElementById('sign-in');
 let reg = document.getElementById('register');
 
+//Change to sign in/register pages
 function register(val) {
 	if (val == 1) {
 		sign.classList.add("POP");
@@ -152,6 +167,7 @@ function register(val) {
 	}
 }
 
+//Move to next page
 function nextPage() {
 	document.getElementById("regPage1").classList.toggle("POP");
 	document.getElementById("regPage2").classList.toggle("POP");
@@ -170,22 +186,22 @@ function nextPage() {
 			
 			
 			console.log(password1 + ", " + password2)
-			//req0
+			//req0 (passwords are equal)
 			var match = password1 === password2 && password1 != ""
 			
-			//req1
+			//req1 (length)
             var length = password1.length >= 8;
 
-            //req2
+            //req2 (capital letter)
             var upper = /[A-Z]/.test(password1);
 
-            //req3
+            //req3 (lowercase letter)
             var lower = /[a-z]/.test(password1);
 
-            //req4
+            //req4 (numbers)
             var number = /\d/.test(password1);
 
-            //req5
+            //req5 (special chars)
             var special = /[!@#$%^&*(),.?:{}|<>]/.test(password1.trim());
 
 			//Check reqs
@@ -225,69 +241,46 @@ function nextPage() {
 
 
 <?php 
-// Check if the form was submitted
+// Check if login form is submitted
 if (isset($_POST['submit'])) {
 
-    // Capture form data (firstName, lastName, email, password)
     $firstName = $_POST['firstName'];
     $lastName = $_POST['lastName'];
     $email = $_POST['email'];
-    // Hash the password using md5
+    // Md5 password
     $password = md5($_POST['password']);
     $password2 = md5($_POST['password2']);
 
-    // Check if the email already exists in the database
+    // Check if email already exists
     $email_check = mysqli_query($con, "SELECT email FROM user WHERE email='$email'");
     $num_rows = mysqli_num_rows($email_check);
 
-    // If the email already exists, show an error message
+    // If email already exists, show an error message
     if ($num_rows > 0) {
-        $_SESSION['regError'] = "<div class='error'>Email already in use, please log in.</div>";
-        echo $_SESSION['regError'];
-        unset($_SESSION['regError']);
+        echo "<script>alert('Email already in use, please log in.');</script>";
     } 
     else {
-        // Insert new user into the database
+        // Insert user into database
         $sql = "INSERT INTO user (firstName, lastName, email, pass) VALUES ('$firstName', '$lastName', '$email', '$password')";
         $res = mysqli_query($con, $sql);
 
-        // If user is inserted successfully, proceed to insert additional records
         if ($res) {
-            // Get the CartID (the last inserted user ID)
             $cartID = mysqli_insert_id($con);
-            
-            // Insert a new record into the punchcard table for the user
             $punchcard_sql = "INSERT INTO punchcard (CartID) VALUES ('$cartID')";
             $punchcard_res = mysqli_query($con, $punchcard_sql);
             
-            // Insert a new record into the cart table
             $cartid_sql = "INSERT INTO cart (cartID) VALUES ('$cartID')";
             mysqli_query($con, $cartid_sql);
             
-            // Check if the punchcard insertion was successful
             if ($punchcard_res) {
                 $_SESSION['regSuccess'] = "<div class='success'>Account Created Successfully!</div>";
-                
-                // If the user is eligible for a free drink, update the punchcard
-                if ($_SESSION['freeDrink'] == 'true') {
-                    $update_query = "UPDATE punchcard SET UnrewardedCards='1' WHERE CartID='$cartID'";
-                    $update_res = mysqli_query($con, $update_query);
-                }
-
                 // Redirect to the login page
                 header("Location: login.php");
-
-            } else {
-                // Handle error if punchcard insertion fails
-                $_SESSION['regError'] = "<div class='error'>Error inserting CartID into punchcard table.</div>";
-                echo $_SESSION['regError'];
-                unset($_SESSION['regError']);
-            }
+            } 
         } else {
             // Handle error if user insertion fails
-            $_SESSION['regError'] = "<div class='error'>Error adding user to the database.</div>";
-            echo $_SESSION['regError'];
-            unset($_SESSION['regError']);
+            echo "<script>alert('There was an error creating your account.');</script>";
+
         }
     }
 }
@@ -300,8 +293,8 @@ if (isset($_POST['login'])) {
     $num_rows  = mysqli_num_rows($check_database_query);
 
     if($num_rows == 0 ) {
-        $_SESSION['error'] = "<div class='error'>Failed to login, email or password incorrect.</div>";
         header('location: login.php');
+        $_SESSION['incorrect'] = "the";
     }
 
     else {
@@ -329,8 +322,9 @@ if (isset($_POST['login'])) {
     $_SESSION['email'] = $email;
     $_SESSION['firstName'] = $firstName;
     $_SESSION['loginSuccess'] = "<div class='success'>Login Successful.</div>";
-    header('location: ../homepage/index.php');
-    // get cart id and make into an array
+    header('location: ../homepage/index.php'
+);
+    // Get cart id and make into an array
     if(!isset($_SESSION['itemArray'])) {
      $_SESSION['itemArray'] = $dataClass->cartToArray(($dataClass->searchData("cart", "CartID", $dataClass->searchData("user", "email", $_SESSION['email'])["CartID"])["ItemList"]));
      }

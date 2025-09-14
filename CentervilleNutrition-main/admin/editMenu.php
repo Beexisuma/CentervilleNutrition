@@ -310,6 +310,11 @@ else {
 			
 echo '
 <div class="popup edit popUp-container">
+<div class="insert-top">
+<button id="insBtn1" class="insert-top-select">
+							Edit Item
+						</button>
+</div>
 	<div class="insert-box">
 		<form method="POST" id="editForm" class="outform">
 			<button class="out2" onclick="closePop(event)">✕</button>
@@ -365,6 +370,11 @@ echo '
 			
 echo '
 <div class="popup edit popUp-container">
+<div class="insert-top">
+<button id="insBtn1" class="insert-top-select">
+							Edit Item
+						</button>
+</div>
 	<div class="insert-box">
 	<button class="out2" onclick="closePop2()">✕</button>
 <form class="insert-form" method="POST" enctype="multipart/form-data">
@@ -410,9 +420,10 @@ if(isset($_POST['editSubmit']) && $type != 'Add-Ons') {
 	}
 	
 	$image = $_FILES['image'];
+	$repeatedImage = false;
 	if($image["size"] == 0)
 	{
-		$imageName = "none";
+		$repeatedImage = true;
 	}
 	else
 	{
@@ -423,7 +434,7 @@ if(isset($_POST['editSubmit']) && $type != 'Add-Ons') {
 	$item_query = mysqli_query($con, "SELECT ItemID, Name, Description, Price, InStock, Type, ImagePath FROM menu WHERE ItemID = '$itemID'");
     $row = $item_query->fetch_assoc();
 	$originalImage = $row["ImagePath"];
-	if($originalImage !="none")
+	if(!$repeatedImage)
 	{
 		unlink($originalImage);
 		file_put_contents($imageName, file_get_contents($image['tmp_name']));

@@ -273,6 +273,7 @@ Reciept page
 	margin: auto;
 	color: var(--dark1);
 	background-color: var(--light1);
+	overflow-y: auto;
 }
 
 .official-box h2 {
@@ -329,6 +330,7 @@ Reciept page
 	color: var(--dark1);
 	font-family: "Geologica", sans-serif;
 	font-size: 18px;
+	padding-bottom: 32px;
 
 }
 
@@ -412,4 +414,9 @@ Reciept page
 	width: 800px;
 }
 
-
+@media only screen and (max-width: 950px) {
+	.table {
+		width: 100%;
+		transform: scale(0.75);
+	}
+}
